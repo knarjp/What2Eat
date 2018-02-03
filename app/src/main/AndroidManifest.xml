@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CalendarGeneratorActivity"
+                  android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".RecipeViewerActivity"
+                  android:parentActivityName=".CalendarGeneratorActivity"></activity>
     </application>
 
 </manifest>
