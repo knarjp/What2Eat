@@ -15,9 +15,9 @@ public class CurrentDayDecorator implements DayViewDecorator {
     private final int color;
     private final CalendarDay today;
 
-    public CurrentDayDecorator(int color, CalendarDay today) {
+    public CurrentDayDecorator(int color) {
         this.color = color;
-        this.today = today;
+        this.today = CalendarDay.today();
     }
 
     @Override
@@ -27,6 +27,6 @@ public class CurrentDayDecorator implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new DotSpan(5, color));
+        view.addSpan(new DotSpan(10, color));
     }
 }

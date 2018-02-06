@@ -6,12 +6,24 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see LICENSE.md for licensing credits
 import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
+import com.design.senior.what2eat.DayDecorators.OccupiedDayDecorator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by KJ on 2/3/2018.
@@ -21,16 +33,19 @@ public class CalendarGeneratorActivity extends AppCompatActivity {
 
     private MaterialCalendarView mCalendarView;
     private CurrentDayDecorator currentDayDecorator;
+    private OccupiedDayDecorator occupiedDayDecorator;
+
+    private Button generateButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendargenerator_layout);
 
-        currentDayDecorator = new CurrentDayDecorator(Color.RED, CalendarDay.today());
-
         mCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
+        generateButton = (Button) findViewById(R.id.btnGenerate);
 
+        currentDayDecorator = new CurrentDayDecorator(Color.RED);
         mCalendarView.addDecorator(currentDayDecorator);
 
         mCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -45,5 +60,40 @@ public class CalendarGeneratorActivity extends AppCompatActivity {
                     startActivity(intent);
             }
         });
+
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CalendarDay startDay = CalendarDay.today();
+
+                List<Date> datesToGenerate = createDatesForGeneration(startDay);
+
+                occupiedDayDecorator = new OccupiedDayDecorator(Color.GREEN, datesToGenerate);
+
+                mCalendarView.addDecorator(occupiedDayDecorator);
+            }
+        });
+    }
+
+    private ArrayList<Date> createDatesForGeneration(CalendarDay startDay) {
+
+        Date currentDate = startDay.getDate();
+
+        ArrayList<Date> dates = new ArrayList<Date>();
+        dates.add(currentDate);
+
+        Calendar calendar = Calendar.getInstance();
+
+        for(int i = 0; i < 6; i++) {
+            // increment date
+            calendar.setTime(currentDate);
+            calendar.add(Calendar.DATE, 1);
+            currentDate = calendar.getTime();
+
+            // add it to dates list
+            dates.add(currentDate);
+        }
+
+        return dates;
     }
 }
