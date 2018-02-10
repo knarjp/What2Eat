@@ -1,6 +1,12 @@
-# Material Calendar View - https://github.com/prolificinteractive/material-calendarview
-Copyright (c) 2017 Prolific Interactive
+# Open Source Projects Used
+We would like to thank these open source projects which help make up our project.
 
+## Material Calendar View - Copyright (c) 2017 Prolific Interactive
+(From their README.md) - A Material design back port of Android's CalendarView. The goal is to have a Material look and feel, rather than 100% parity with the platform's implementation.
+
+https://github.com/prolificinteractive/material-calendarview
+
+### License
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
