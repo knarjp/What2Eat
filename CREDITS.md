@@ -7,6 +7,8 @@ We would like to thank these open source projects which help make up our project
 https://github.com/prolificinteractive/material-calendarview
 
 ### License
+Copyright (c) 2017 Prolific Interactive
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
