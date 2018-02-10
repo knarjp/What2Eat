@@ -20,6 +20,8 @@
                   android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".RecipeViewerActivity"
                   android:parentActivityName=".CalendarGeneratorActivity"></activity>
+        <activity android:name=".customRecipeViewerActivity"
+                  android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

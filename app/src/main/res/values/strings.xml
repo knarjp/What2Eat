@@ -2,4 +2,5 @@
     <string name="app_name">What2Eat</string>
     <string name="goto_calendar">View Calendar</string>
     <string name="generate_recipes">Generate Recipes</string>
+    <string name="goto_custom_recipe_editor">View and Edit Custom Recipes</string>
 </resources>

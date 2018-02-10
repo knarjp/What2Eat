@@ -9,6 +9,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnViewCalendar;
+    private Button viewCustomRecipeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,11 +17,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnViewCalendar = (Button) findViewById(R.id.btnViewCalendar);
+        viewCustomRecipeButton = (Button) findViewById(R.id.viewCustomRecipeButton);
 
         btnViewCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CalendarGeneratorActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewCustomRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, customRecipeViewerActivity.class);
                 startActivity(intent);
             }
         });
