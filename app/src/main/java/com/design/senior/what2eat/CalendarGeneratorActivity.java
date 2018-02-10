@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-// Material Calendar View - Copyright (c) 2017 Prolific Interactive - see LICENSE.md for licensing credits
+// Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
 import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
 import com.design.senior.what2eat.DayDecorators.OccupiedDayDecorator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
