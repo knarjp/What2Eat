@@ -5,4 +5,4 @@ Kevin Jessup (knarjp)
 
 
 
-See LICENSE.md for licensing credits.
+See CREDITS.md for licensing credits/list of open source projects used in this project.
