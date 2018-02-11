@@ -20,7 +20,7 @@
                   android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".RecipeViewerActivity"
                   android:parentActivityName=".CalendarGeneratorActivity"></activity>
-        <activity android:name=".customRecipeViewerActivity"
+        <activity android:name=".CustomRecipeViewerActivity"
                   android:parentActivityName=".MainActivity"></activity>
     </application>
 

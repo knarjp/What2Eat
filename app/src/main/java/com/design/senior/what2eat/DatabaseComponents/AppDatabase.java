@@ -5,6 +5,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.design.senior.what2eat.DatabaseComponents.Entities.temp_data;
+
+// RoomAsset - Copyright (c) 2018 Ibrahim Eid - see CREDITS.md for licensing credits
 import com.huma.room_for_asset.RoomAsset;
 
 /**
@@ -12,7 +14,8 @@ import com.huma.room_for_asset.RoomAsset;
  */
 
 @Database(entities = {temp_data.class},
-        version = 2)
+        version = 2,
+        exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

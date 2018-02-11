@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.design.senior.what2eat.DatabaseComponents.AppDatabase;
 import com.design.senior.what2eat.DatabaseComponents.Entities.temp_data;
@@ -18,7 +15,7 @@ import java.util.List;
  * Created by KJ on 2/10/2018.
  */
 
-public class customRecipeViewerActivity extends AppCompatActivity {
+public class CustomRecipeViewerActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
