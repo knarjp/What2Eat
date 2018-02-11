@@ -34,7 +34,9 @@ https://github.com/humazed/RoomAsset
 
 ### License
 Copyright (C) 2018 Ibrahim Eid
+
 Copyright (C) 2011 readyState Software Ltd
+
 Copyright (C) 2007 The Android Open Source Project
 
 Licensed under the Apache License, Version 2.0 (the "License");
