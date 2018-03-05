@@ -16,11 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CalendarGeneratorActivity"
+        <activity android:name=".CalendarActivity"
                   android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".RecipeViewerActivity"
-                  android:parentActivityName=".CalendarGeneratorActivity"></activity>
-        <activity android:name=".CustomRecipeViewerActivity"
+        <activity android:name=".MealViewerActivity"
+                  android:parentActivityName=".CalendarActivity"></activity>
+        <activity android:name=".CustomMealListActivity"
                   android:parentActivityName=".MainActivity"></activity>
     </application>
 

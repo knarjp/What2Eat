@@ -16,13 +16,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnViewCalendar = (Button) findViewById(R.id.btnViewCalendar);
-        viewCustomRecipeButton = (Button) findViewById(R.id.viewCustomRecipeButton);
+        btnViewCalendar = (Button) findViewById(R.id.ViewCalendarButton);
+        viewCustomRecipeButton = (Button) findViewById(R.id.ViewCustomMealsButton);
 
         btnViewCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CalendarGeneratorActivity.class);
+                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
                 startActivity(intent);
             }
         });
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         viewCustomRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CustomRecipeViewerActivity.class);
+                Intent intent = new Intent(MainActivity.this, CustomMealListActivity.class);
                 startActivity(intent);
             }
         });

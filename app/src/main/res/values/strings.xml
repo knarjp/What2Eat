@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">What2Eat</string>
     <string name="goto_calendar">View Calendar</string>
-    <string name="generate_recipes">Generate Recipes</string>
-    <string name="goto_custom_recipe_editor">View and Edit Custom Recipes</string>
+    <string name="generate_meals">Generate Meals</string>
+    <string name="goto_custom_meal_editor">View and Edit Custom Meals</string>
     <string name="thumbnail">ImageIcon</string>
 </resources>

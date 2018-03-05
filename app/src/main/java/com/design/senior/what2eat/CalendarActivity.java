@@ -25,9 +25,9 @@ import java.util.List;
  * Created by KJ on 2/3/2018.
  */
 
-public class CalendarGeneratorActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity {
 
-    private MaterialCalendarView mCalendarView;
+    private MaterialCalendarView materialCalendarView;
     private CurrentDayDecorator currentDayDecorator;
     private OccupiedDayDecorator occupiedDayDecorator;
 
@@ -36,21 +36,21 @@ public class CalendarGeneratorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calendargenerator_layout);
+        setContentView(R.layout.calendar_layout);
 
-        mCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
-        generateButton = (Button) findViewById(R.id.btnGenerate);
+        materialCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
+        generateButton = (Button) findViewById(R.id.GenerateButton);
 
         currentDayDecorator = new CurrentDayDecorator(Color.RED);
-        mCalendarView.addDecorator(currentDayDecorator);
+        materialCalendarView.addDecorator(currentDayDecorator);
 
-        mCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                     String dateString = date.getMonth() + 1 + "/" + date.getDay() + "/" + date.getYear(); // note: months start at 0
                     String message = "I am a recipe list";
 
-                    Intent intent = new Intent(CalendarGeneratorActivity.this, RecipeViewerActivity.class);
+                    Intent intent = new Intent(CalendarActivity.this, MealViewerActivity.class);
                     intent.putExtra("date", dateString);
                     intent.putExtra("message", message);
                     startActivity(intent);
@@ -66,7 +66,7 @@ public class CalendarGeneratorActivity extends AppCompatActivity {
 
                 occupiedDayDecorator = new OccupiedDayDecorator(Color.GREEN, datesToGenerate);
 
-                mCalendarView.addDecorator(occupiedDayDecorator);
+                materialCalendarView.addDecorator(occupiedDayDecorator);
             }
         });
     }

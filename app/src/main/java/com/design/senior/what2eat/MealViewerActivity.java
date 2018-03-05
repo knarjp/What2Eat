@@ -9,7 +9,7 @@ import android.widget.TextView;
  * Created by KJ on 2/3/2018.
  */
 
-public class RecipeViewerActivity extends AppCompatActivity {
+public class MealViewerActivity extends AppCompatActivity {
 
     private TextView dateText;
     private TextView messageText;
@@ -17,9 +17,9 @@ public class RecipeViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipeviewer_layout);
-        dateText = (TextView) findViewById(R.id.dateViewCalendarRecipeList);
-        messageText = (TextView) findViewById(R.id.messageViewCalendarRecipeList);
+        setContentView(R.layout.mealviewer_layout);
+        dateText = (TextView) findViewById(R.id.DateViewCalendarMealList);
+        messageText = (TextView) findViewById(R.id.MessageViewCalendarMealList);
 
         Intent incomingIntent = getIntent();
         String date = incomingIntent.getStringExtra("date");

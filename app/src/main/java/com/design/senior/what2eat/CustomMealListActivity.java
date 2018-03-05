@@ -15,7 +15,7 @@ import java.util.List;
  * Created by KJ on 2/10/2018.
  */
 
-public class CustomRecipeViewerActivity extends AppCompatActivity {
+public class CustomMealListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
@@ -28,11 +28,11 @@ public class CustomRecipeViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customrecipeviewer_layout);
+        setContentView(R.layout.custom_meal_list_layout);
 
         db = AppDatabase.getAppDataBase(getApplicationContext());
 
-        recyclerView = (RecyclerView) findViewById(R.id.customRecipeViewerList);
+        recyclerView = (RecyclerView) findViewById(R.id.CustomMealList);
 
         recyclerView.setHasFixedSize(true);
 

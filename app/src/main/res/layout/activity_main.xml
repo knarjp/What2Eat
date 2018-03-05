@@ -7,11 +7,11 @@
     tools:context="com.design.senior.what2eat.MainActivity">
 
     <Button
-        android:id="@+id/btnViewCalendar"
+        android:id="@+id/ViewCalendarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/goto_calendar"
-        app:layout_constraintBottom_toTopOf="@+id/viewCustomRecipeButton"
+        app:layout_constraintBottom_toTopOf="@+id/ViewCustomMealsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,19 +20,19 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
-        android:id="@+id/viewCustomRecipeButton"
+        android:id="@+id/ViewCustomMealsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
-        android:text="@string/goto_custom_recipe_editor"
+        android:text="@string/goto_custom_meal_editor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnViewCalendar"
+        app:layout_constraintTop_toBottomOf="@+id/ViewCalendarButton"
         app:layout_constraintVertical_bias="0.250"
         app:layout_constraintVertical_chainStyle="packed"/>
 
