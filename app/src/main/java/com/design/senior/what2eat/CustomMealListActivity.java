@@ -16,21 +16,21 @@ import java.util.List;
  */
 
 public class CustomMealListActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
+// TODO : change structures for new database
+  /*  private RecyclerView recyclerView;
 
     private LinearLayoutManager linearLayoutManager;
 
     private AppDatabase db;
 
-    private List<temp_data> dataList;
+    private List<temp_data> dataList;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_meal_list_layout);
 
-        db = AppDatabase.getAppDataBase(getApplicationContext());
+      /*  db = AppDatabase.getAppDataBase(getApplicationContext());
 
         recyclerView = (RecyclerView) findViewById(R.id.CustomMealList);
 
@@ -54,6 +54,6 @@ public class CustomMealListActivity extends AppCompatActivity {
         }
 
         RecipeEditorAdaptor adapter = new RecipeEditorAdaptor(dataList, this);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
     }
 }

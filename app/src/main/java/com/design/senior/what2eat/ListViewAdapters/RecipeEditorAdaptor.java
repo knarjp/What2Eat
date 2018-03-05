@@ -20,6 +20,8 @@ import java.util.List;
 
 public class RecipeEditorAdaptor extends RecyclerView.Adapter<RecipeEditorAdaptor.ViewHolder> {
 
+    // TODO: modify to use MealTuple objects instead of temp_data objects
+
     private List<temp_data> dataSource;
     private Context context;
 
