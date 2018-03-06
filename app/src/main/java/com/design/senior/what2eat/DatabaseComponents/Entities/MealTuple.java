@@ -23,7 +23,7 @@ public class MealTuple {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "MealID", typeAffinity = ColumnInfo.INTEGER)
-    private int mealID;
+    private int mealID = 0;
 
     @NonNull
     @ColumnInfo(name = "Name", typeAffinity = ColumnInfo.TEXT)
@@ -68,10 +68,6 @@ public class MealTuple {
 
     public int getMealID() {
         return mealID;
-    }
-
-    public void setMealID(int mealID) {
-        this.mealID = mealID;
     }
 
     public String getName() {
