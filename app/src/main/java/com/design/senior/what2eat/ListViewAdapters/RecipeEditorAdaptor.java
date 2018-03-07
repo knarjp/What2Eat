@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.design.senior.what2eat.DatabaseComponents.Entities.temp_data;
+
+import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
 import com.design.senior.what2eat.R;
 
 import java.util.List;
@@ -20,12 +21,12 @@ import java.util.List;
 
 public class RecipeEditorAdaptor extends RecyclerView.Adapter<RecipeEditorAdaptor.ViewHolder> {
 
-    // TODO: modify to use MealTuple objects instead of temp_data objects
+    // TODO: modify to use Meal objects instead of temp_data objects
 
-    private List<temp_data> dataSource;
+    private List<Meal> dataSource;
     private Context context;
 
-    public RecipeEditorAdaptor(List<temp_data> dataSource, Context context) {
+    public RecipeEditorAdaptor(List<Meal> dataSource, Context context) {
         this.dataSource = dataSource;
         this.context = context;
     }
@@ -52,8 +53,8 @@ public class RecipeEditorAdaptor extends RecyclerView.Adapter<RecipeEditorAdapto
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String titleString = dataSource.get(position).getText();
-        byte[] imageByteArray = dataSource.get(position).getImage();
+        String titleString = dataSource.get(position).getName();
+        byte[] imageByteArray = dataSource.get(position).getPicture();
 
         Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
 

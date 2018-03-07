@@ -14,7 +14,7 @@ import java.util.Locale;
  */
 
 @Entity
-public class EntryTuple {
+public class Entry {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "ID", typeAffinity = ColumnInfo.INTEGER)
@@ -28,7 +28,19 @@ public class EntryTuple {
         return ID;
     }
 
-    public Date getDate() throws Exception {
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getDate()  {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Date getDateAsDate() throws Exception {
         return DateFormat.getDateInstance(DateFormat.SHORT, Locale.US).parse(date);
     }
 

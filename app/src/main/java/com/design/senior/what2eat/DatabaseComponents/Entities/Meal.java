@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Entity
-public class MealTuple {
+public class Meal {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
@@ -59,7 +59,7 @@ public class MealTuple {
     @ColumnInfo(name = "EntryType", typeAffinity = ColumnInfo.TEXT)
     private String entryType;
 
-    public MealTuple() {
+    public Meal() {
         this.allergies = AllergyType.NONE.name() + ",";
         this.dietType = DietType.NONE.name() + ",";
         this.mealTime = MealTime.BREAKFAST.name();
@@ -68,6 +68,10 @@ public class MealTuple {
 
     public int getMealID() {
         return mealID;
+    }
+
+    public void setMealID(int mealID) {
+        this.mealID = mealID;
     }
 
     public String getName() {
@@ -110,7 +114,7 @@ public class MealTuple {
         this.caloricAmount = caloricAmount;
     }
 
-    public List<AllergyType> getAllergies() {
+    public List<AllergyType> getAllergiesEnum() {
         List<AllergyType> allergiesList = new ArrayList<>();
 
         if(allergies.contains(AllergyType.NONE.name())) {
@@ -157,7 +161,7 @@ public class MealTuple {
     }
 
 
-    public void setAllergies(List<AllergyType> allergiesList) {
+    public void setAllergiesEnum(List<AllergyType> allergiesList) {
         this.allergies = "";
 
         if(allergiesList.isEmpty()) {
@@ -169,7 +173,7 @@ public class MealTuple {
         }
     }
 
-    public DietType getDietType() {
+    public DietType getDietTypeEnum() {
         if(dietType.contains(DietType.VEGAN.name())) {
             return DietType.VEGAN;
         } else if(dietType.contains(DietType.VEGETARIAN.name())) {
@@ -185,11 +189,11 @@ public class MealTuple {
         }
     }
 
-    public void setDietType(DietType dietType) {
+    public void setDietTypeEnum(DietType dietType) {
         this.dietType = dietType.name();
     }
 
-    public MealTime getMealTime() {
+    public MealTime getMealTimeEnum() {
         if(mealTime.contains(MealTime.BREAKFAST.name())) {
             return MealTime.BREAKFAST;
         } else if(mealTime.contains(MealTime.LUNCH.name())) {
@@ -201,11 +205,11 @@ public class MealTuple {
         }
     }
 
-    public void setMealTime(MealTime mealTime) {
+    public void setMealTimeEnum(MealTime mealTime) {
         this.mealTime = mealTime.name();
     }
 
-    public EntryType getEntryType() {
+    public EntryType getEntryTypeEnum() {
         if(entryType.contains(EntryType.DEFAULT.name())) {
             return EntryType.DEFAULT;
         } else if(entryType.contains(EntryType.CUSTOM.name())) {
@@ -215,7 +219,39 @@ public class MealTuple {
         }
     }
 
-    public void setEntryType(EntryType entryType) {
+    public void setEntryTypeEnum(EntryType entryType) {
         this.entryType = entryType.name();
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
+    }
+
+    public String getDietType() {
+        return dietType;
+    }
+
+    public void setDietType(String dietType) {
+        this.dietType = dietType;
+    }
+
+    public String getMealTime() {
+        return mealTime;
+    }
+
+    public void setMealTime(String mealTime) {
+        this.mealTime = mealTime;
+    }
+
+    public String getEntryType() {
+        return entryType;
+    }
+
+    public void setEntryType(String entryType) {
+        this.entryType = entryType;
     }
 }

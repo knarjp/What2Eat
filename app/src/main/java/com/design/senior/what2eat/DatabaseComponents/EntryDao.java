@@ -5,23 +5,23 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.design.senior.what2eat.DatabaseComponents.Entities.temp_data;
+import com.design.senior.what2eat.DatabaseComponents.Entities.Entry;
 
 import java.util.List;
 
 /**
- * Created by KJ on 2/10/2018.
+ * Created by KJ on 3/7/2018.
  */
 
 @Dao
-public interface tempDataDao {
+public interface EntryDao {
 
-    @Query("SELECT * from temp_data")
-    List<temp_data> getAllData();
+    @Query("SELECT * FROM Entry")
+    List<Entry> getAllGeneratedMealEntries();
 
     @Insert
-    void insertTuples(temp_data... data);
+    void inserEntryTuples(Entry... entries);
 
     @Delete
-    void delete(temp_data data);
+    void deleteEntryTuple(Entry entry);
 }
