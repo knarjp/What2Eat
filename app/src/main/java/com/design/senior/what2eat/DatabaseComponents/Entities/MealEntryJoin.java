@@ -3,13 +3,14 @@ package com.design.senior.what2eat.DatabaseComponents.Entities;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 /**
  * Created by KJ on 3/6/2018.
  */
-// TODO: add index for entry to make queries faster
+
 @Entity(tableName = "MealEntryJoin",
         primaryKeys =  {"meal", "entry"},
         foreignKeys =  {
@@ -21,6 +22,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                             parentColumns = "ID",
                             childColumns = "entry",
                             onDelete = CASCADE)
+        },
+        indices = {@Index(value = {"entry"})
         })
 public class MealEntryJoin {
 

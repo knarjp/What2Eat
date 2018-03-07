@@ -17,7 +17,7 @@ import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
 
 @Database(entities = {Meal.class, Entry.class, MealEntryJoin.class},
         version = 2,
-        exportSchema = false)
+        exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -26,7 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract EntryDao getEntryDao();
     public abstract MealEntryJoinDao getMealEntryJoinDao();
 
-    public static AppDatabase getAppDataBase(Context context) {
+    public static AppDatabase getAppDatabase(Context context) {
         if(INSTANCE == null) {
             INSTANCE = RoomAsset.databaseBuilder(context, AppDatabase.class, "meal_entries.db").build();
         }
