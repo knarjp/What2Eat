@@ -25,6 +25,7 @@ public class CurrentDayDecorator implements DayViewDecorator {
         return day.equals(today);
     }
 
+    // TODO: make prettier icon for decorated day
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new DotSpan(10, color));

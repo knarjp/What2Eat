@@ -5,32 +5,87 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/recipe_list_thumbnail"
+        android:id="@+id/meal_editor_list_thumbnail"
         android:layout_width="90dp"
         android:layout_height="90dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="6dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         android:scaleType="centerInside"
         tools:src="@mipmap/ic_launcher"
         android:contentDescription="@string/thumbnail"/>
 
     <RelativeLayout
-        android:id="@+id/recipe_list_text_layout"
+        android:id="@+id/meal_editor_list_row_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/recipe_list_thumbnail">
+        android:layout_toEndOf="@id/meal_editor_list_thumbnail">
 
         <TextView
-            android:id="@+id/recipe_list_title"
+            android:id="@+id/meal_editor_list_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:textSize="18sp"
-            tools:text="Title" />
+            android:maxLength="30"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Title"/>
+
+        <Button
+            android:id="@+id/meal_editor_list_view_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/meal_editor_list_view_meal"/>
+
+        <Button
+            android:id="@+id/meal_editor_list_edit_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="10dp"
+            android:layout_centerVertical="true"
+            android:text="@string/meal_editor_list_edit_meal"
+            android:layout_toEndOf="@id/meal_editor_list_view_meal"/>
+
+        <RelativeLayout
+            android:id="@+id/meal_editor_generate_switch_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_toEndOf="@id/meal_editor_list_edit_meal">
+
+            <TextView
+                android:id="@+id/meal_editor_generate_switch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:text="@string/meal_editor_generate_switch"/>
+
+            <Switch
+                android:id="@+id/allow_generate_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/meal_editor_generate_switch_text"
+                android:showText="false"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/meal_editor_list_delete_meal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="3dp"
+            android:text="@string/meal_editor_list_delete_meal"
+            android:layout_toEndOf="@id/meal_editor_generate_switch_layout"/>
     </RelativeLayout>
 </RelativeLayout>

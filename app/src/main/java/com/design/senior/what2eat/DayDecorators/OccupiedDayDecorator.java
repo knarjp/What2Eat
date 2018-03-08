@@ -41,7 +41,7 @@ public class OccupiedDayDecorator implements DayViewDecorator {
         }
         return false;
     }
-
+    // TODO: make prettier icon for decorated day
     @Override
     public void decorate(DayViewFacade view) {
         view.addSpan(new DotSpan(5, color));

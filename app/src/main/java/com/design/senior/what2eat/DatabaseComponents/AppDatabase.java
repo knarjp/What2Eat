@@ -17,14 +17,14 @@ import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
 
 @Database(entities = {Meal.class, Entry.class, MealEntryJoin.class},
         version = 2,
-        exportSchema = true)
+        exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
-    public abstract MealDao getMealDao();
-    public abstract EntryDao getEntryDao();
-    public abstract MealEntryJoinDao getMealEntryJoinDao();
+    public abstract MealDao mealDao();
+    public abstract EntryDao entryDao();
+    public abstract MealEntryJoinDao mealEntryJoinDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if(INSTANCE == null) {

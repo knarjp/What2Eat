@@ -17,7 +17,7 @@ import java.util.List;
  * Created by KJ on 3/5/2018.
  */
 
-@Entity
+@Entity(tableName = "Meal")
 public class Meal {
 
     @PrimaryKey(autoGenerate = true)
@@ -159,7 +159,6 @@ public class Meal {
 
         return allergiesList;
     }
-
 
     public void setAllergiesEnum(List<AllergyType> allergiesList) {
         this.allergies = "";

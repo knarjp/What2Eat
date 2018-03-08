@@ -3,5 +3,10 @@
     <string name="goto_calendar">View Calendar</string>
     <string name="generate_meals">Generate Meals</string>
     <string name="goto_custom_meal_editor">View and Edit Custom Meals</string>
-    <string name="thumbnail">ImageIcon</string>
+    <string name="meal_editor_list_thumbnail">ImageIcon</string>
+    <string name="meal_editor_list_view_meal">View</string>
+    <string name="meal_editor_list_edit_meal">Edit</string>
+    <string name="meal_editor_generate_switch">Generate</string>
+    <string name="meal_editor_list_delete_meal">Delete</string>
+    <string name="thumbnail">Thumbnail</string>
 </resources>

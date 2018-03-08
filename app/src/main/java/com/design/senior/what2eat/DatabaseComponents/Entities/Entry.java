@@ -13,7 +13,7 @@ import java.util.Locale;
  * Created by KJ on 3/5/2018.
  */
 
-@Entity
+@Entity(tableName = "Entry")
 public class Entry {
     @PrimaryKey(autoGenerate = true)
     @NonNull

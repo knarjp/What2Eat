@@ -19,31 +19,29 @@ import java.util.List;
  * Created by KJ on 2/10/2018.
  */
 
-public class RecipeEditorAdaptor extends RecyclerView.Adapter<RecipeEditorAdaptor.ViewHolder> {
-
-    // TODO: modify to use Meal objects instead of temp_data objects
+public class MealEditorListAdaptor extends RecyclerView.Adapter<MealEditorListAdaptor.ViewHolder> {
 
     private List<Meal> dataSource;
     private Context context;
 
-    public RecipeEditorAdaptor(List<Meal> dataSource, Context context) {
+    public MealEditorListAdaptor(List<Meal> dataSource, Context context) {
         this.dataSource = dataSource;
         this.context = context;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        protected TextView title;
+        protected TextView name;
         protected ImageView thumbnail;
 
         public ViewHolder(View view) {
             super(view);
-            this.title = (TextView) view.findViewById(R.id.recipe_list_title);
-            this.thumbnail = (ImageView) view.findViewById(R.id.recipe_list_thumbnail);
+            this.name = (TextView) view.findViewById(R.id.meal_editor_list_name);
+            this.thumbnail = (ImageView) view.findViewById(R.id.meal_editor_list_thumbnail);
         }
     }
 
     @Override
-    public RecipeEditorAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MealEditorListAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.editor_listview_layout, parent, false);
 
@@ -58,7 +56,7 @@ public class RecipeEditorAdaptor extends RecyclerView.Adapter<RecipeEditorAdapto
 
         Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
 
-        holder.title.setText(titleString);
+        holder.name.setText(titleString);
         holder.thumbnail.setImageBitmap(imageBitmap);
     }
 
