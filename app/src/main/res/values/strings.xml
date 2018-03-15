@@ -9,4 +9,11 @@
     <string name="meal_editor_generate_switch">Generate</string>
     <string name="meal_editor_list_delete_meal">Delete</string>
     <string name="thumbnail">Thumbnail</string>
+    <string name="meal_viewer_fragment_name">Name</string>
+    <string name="meal_viewer_fragment_ingredient_header">Ingredients</string>
+    <string name="meal_viewer_fragment_ingredient_list">ingredients list</string>
+    <string name="meal_viewer_fragment_recipe_header">Recipe</string>
+    <string name="meal_viewer_fragment_recipe_list">recipe list</string>
+    <string name="meal_viewer_fragment_allergies_header">Allergies</string>
+    <string name="meal_viewer_fragment_allergies_list">allergies list</string>
 </resources>

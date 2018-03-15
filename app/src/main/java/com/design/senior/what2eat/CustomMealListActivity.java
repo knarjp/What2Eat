@@ -58,7 +58,7 @@ public class CustomMealListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        MealEditorListAdaptor adapter = new MealEditorListAdaptor(dataList, this);
+        MealEditorListAdaptor adapter = new MealEditorListAdaptor(this, dataList, this);
         recyclerView.setAdapter(adapter);
     }
 }
