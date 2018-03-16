@@ -1,13 +1,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="com.design.senior.what2eat.Fragments.MealViewerFragment">
 
     <RelativeLayout
         android:id="@+id/meal_viewer_scrollview_layout"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/meal_viewer_name"
@@ -78,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/meal_viewer_allergies_header"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:layout_marginTop="6dp"
             android:text="@string/meal_viewer_fragment_allergies_list"/>
     </RelativeLayout>

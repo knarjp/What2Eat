@@ -3,6 +3,8 @@ package com.design.senior.what2eat.DatabaseComponents.Entities;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
@@ -18,7 +20,7 @@ import java.util.List;
  */
 
 @Entity(tableName = "Meal")
-public class Meal {
+public class Meal implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
@@ -253,4 +255,49 @@ public class Meal {
     public void setEntryType(String entryType) {
         this.entryType = entryType;
     }
+
+    // This code is used to allow us to pass Meal objects in-between intents without having
+    // to manually get each of the meal attributes and doing multiple passes into the intent
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mealID);
+        dest.writeString(name);
+        dest.writeByteArray(picture);
+        dest.writeString(ingredients);
+        dest.writeString(recipe);
+        dest.writeInt(caloricAmount);
+        dest.writeString(allergies);
+        dest.writeString(dietType);
+        dest.writeString(mealTime);
+        dest.writeString(entryType);
+    }
+
+    private Meal(Parcel parcel) {
+        // ORDER MATTERS, SEE ABOVE METHOD FOR ORDER
+        this.mealID = parcel.readInt();
+        this.name = parcel.readString();
+        this.picture = parcel.createByteArray();
+        this.ingredients = parcel.readString();
+        this.recipe = parcel.readString();
+        this.caloricAmount = parcel.readInt();
+        this.allergies = parcel.readString();
+        this.dietType = parcel.readString();
+        this.mealTime = parcel.readString();
+        this.entryType = parcel.readString();
+    }
+
+    public static final Parcelable.Creator<Meal> CREATOR = new Parcelable.Creator<Meal>() {
+        public Meal createFromParcel(Parcel in) {
+            return new Meal(in);
+        }
+
+        public Meal[] newArray(int size) {
+            return new Meal[size];
+        }
+    };
 }

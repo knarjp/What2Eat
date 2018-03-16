@@ -59,7 +59,9 @@ public class MealViewerFragment extends Fragment {
         }
 
         args.putStringArrayList(ALLERGIES_ARG, allergiesStrings);
+
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -69,32 +71,40 @@ public class MealViewerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_meal_viewer, container, false);
 
         // assign view fields to xml IDs
-        name = (TextView)view.findViewById(R.id.meal_editor_list_name);
-        image = (ImageView) view.findViewById(R.id.meal_editor_list_thumbnail);
+        name = (TextView) view.findViewById(R.id.meal_viewer_name);
+        image = (ImageView) view.findViewById(R.id.meal_viewer_image);
         ingredients = (TextView) view.findViewById(R.id.meal_viewer_ingredients_content);
         recipe = (TextView) view.findViewById(R.id.meal_viewer_recipe_content);
         allergies = (TextView) view.findViewById(R.id.meal_viewer_allergies_content);
 
-        return view;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        // get data for view fields
         if (getArguments() != null) {
-            name.setText(savedInstanceState.getString(NAME_ARG));
-            ingredients.setText(savedInstanceState.getString(INGREDIENTS_ARG));
-            recipe.setText(savedInstanceState.getString(RECIPE_ARG));
-            allergies.setText(savedInstanceState.getString(ALLERGIES_ARG));
+            name.setText(getArguments().getString(NAME_ARG));
+            ingredients.setText(getArguments().getString(INGREDIENTS_ARG));
+            recipe.setText(getArguments().getString(RECIPE_ARG));
+
+            ArrayList<String> allergiesList = getArguments().getStringArrayList(ALLERGIES_ARG);
+            String allergiesString = "";
+            for(String allergy : allergiesList) {
+                allergiesString += allergy + ", ";
+            }
+
+            if(allergies.length() > 2) {
+                allergies.setText(allergiesString.substring(0, allergiesString.length() - 2));
+            } else {
+                allergies.setText(allergiesString);
+            }
 
             try {
-                byte[] imageByteArray = savedInstanceState.getByteArray(IMAGE_ARG);
+                byte[] imageByteArray = getArguments().getByteArray(IMAGE_ARG);
                 Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
 
                 image.setImageBitmap(imageBitmap);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 // do nothing if image cannot be loaded (keep default image)
             }
         }
+
+        return view;
     }
 }

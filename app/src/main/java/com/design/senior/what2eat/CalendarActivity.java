@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
 import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
@@ -47,13 +48,15 @@ public class CalendarActivity extends AppCompatActivity {
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                    String dateString = date.getMonth() + 1 + "/" + date.getDay() + "/" + date.getYear(); // note: months start at 0
-                    String message = "I am a recipe list";
+          //          String dateString = date.getMonth() + 1 + "/" + date.getDay() + "/" + date.getYear(); // note: months start at 0
+             //       String message = "I am a recipe list";
 
-                    Intent intent = new Intent(CalendarActivity.this, MealViewerActivity.class);
-                    intent.putExtra("date", dateString);
-                    intent.putExtra("message", message);
-                    startActivity(intent);
+             //       Intent intent = new Intent(CalendarActivity.this, MealViewerActivity.class);
+              //      intent.putExtra("date", dateString);
+              //      intent.putExtra("message", message);
+               //
+
+                Toast.makeText(getApplicationContext(), "clicked a day", Toast.LENGTH_SHORT).show();
             }
         });
 

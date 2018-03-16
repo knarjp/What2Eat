@@ -1,10 +1,9 @@
 package com.design.senior.what2eat.ListViewAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.design.senior.what2eat.CustomMealListActivity;
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.Fragments.MealViewerFragment;
+import com.design.senior.what2eat.MealViewerActivity;
 import com.design.senior.what2eat.R;
 
 import java.util.List;
@@ -58,23 +55,9 @@ public class MealEditorListAdaptor extends RecyclerView.Adapter<MealEditorListAd
                 public void onClick(View view) {
                     Meal meal = dataSource.get(getAdapterPosition());
 
-                    Toast.makeText(context, meal.getName(), Toast.LENGTH_SHORT).show();
-
-                  //  MealViewerFragment mealViewerFragment = MealViewerFragment.newInstance(meal);
-
-                    //FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-
-                   // transaction.replace(R.id.CustomMealList, mealViewerFragment);
-                   // transaction.addToBackStack(null);
-
-//                    transaction.commit();
-
-
-                    // TODO: figure out how to start fragment from inside this method
-                   // CustomMealListActivity activity = (CustomMealListActivity) context;
-
-                 //   FragmentManager fragmentManager = activity.getSupportFragmentManager();
-                  //  FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    Intent intent = new Intent(context, MealViewerActivity.class);
+                    intent.putExtra("meal", meal);
+                    context.startActivity(intent);
                 }
             });
         }
