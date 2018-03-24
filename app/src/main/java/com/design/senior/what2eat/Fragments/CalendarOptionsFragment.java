@@ -1,22 +1,13 @@
 package com.design.senior.what2eat.Fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
 import com.design.senior.what2eat.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by KJ on 3/24/2018.

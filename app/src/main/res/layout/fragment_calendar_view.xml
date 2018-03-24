@@ -12,7 +12,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusableInTouchMode="true">
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/MaterialCalendarView"
@@ -25,10 +26,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/MaterialCalendarView"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentStart="true"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/generate_meals"/>
+
+        <EditText
+            android:id="@+id/CaloricAmountTextbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/GenerateButton"
+            android:layout_alignBaseline="@+id/GenerateButton"
+            android:hint="@string/calendar_intake_text"
+            android:inputType="number"
+            />
 
         <Button
             android:id="@+id/OptionsButton"

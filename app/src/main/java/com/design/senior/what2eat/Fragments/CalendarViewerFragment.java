@@ -1,29 +1,24 @@
 package com.design.senior.what2eat.Fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
+
 import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
 import com.design.senior.what2eat.DayDecorators.OccupiedDayDecorator;
 import com.design.senior.what2eat.R;
@@ -45,6 +40,8 @@ public class CalendarViewerFragment extends Fragment {
 
     private Button generateButton;
     private Button generationOptionsButton;
+
+    private CalendarViewToParentActivityCommunicator communicator;
 
     public CalendarViewerFragment() {
         // Required empty public constructor
@@ -68,6 +65,7 @@ public class CalendarViewerFragment extends Fragment {
         generationOptionsButton = (Button) view.findViewById(R.id.OptionsButton);
 
         currentDayDecorator = new CurrentDayDecorator(Color.RED);
+        // TODO: add logic for marking days that have meals generated
         materialCalendarView.addDecorator(currentDayDecorator);
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -103,14 +101,46 @@ public class CalendarViewerFragment extends Fragment {
         generationOptionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    FragmentManager manager = getActivity().getSupportFragmentManager();
-            //    FragmentTransaction transaction = manager.beginTransaction();
-            //    transaction.replace(R.id.calendar_frame_layout, );
-            //    transaction.commit();
+                communicator.changeToOptionsFragment(); // send event to the host activity
             }
         });
 
         return view;
+    }
+
+    public interface CalendarViewToParentActivityCommunicator {
+        public void changeToOptionsFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) { // required for android API versions on or after 23
+        super.onAttach(context);
+
+        Activity activity;
+
+        if(context instanceof Activity) { // TODO: oh god this is gross figure out how to get around this
+            activity = (Activity) context;
+
+            try {
+                communicator = (CalendarViewToParentActivityCommunicator) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(context.toString() + "must implement parentActivityCommunicationPath");
+            }
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) { // required for android API versions before 23
+        super.onAttach(activity);
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            try {
+                communicator = (CalendarViewToParentActivityCommunicator) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString() + "must implement parentActivityCommunicationPath");
+            }
+        }
     }
 
     private ArrayList<Date> createDatesForGeneration(CalendarDay startDay) {
