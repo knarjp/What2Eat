@@ -1,23 +1,19 @@
 package com.design.senior.what2eat;
 
-import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
-import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
-import com.design.senior.what2eat.DatabaseComponents.Enums.DietType;
+import android.support.test.runner.AndroidJUnit4;
+
 import com.design.senior.what2eat.MealGenerators.MealGenerator;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.junit.runner.RunWith;
 
 /**
  * Created by KJ on 3/24/2018.
  */
 
-public class MealGeneratorTests {
-
+@RunWith(AndroidJUnit4.class)
+public class MealGeneratorInstrumentedTests {
     @Test
     public void testMealGeneratorSetters() throws Exception {
         MealGenerator generator = new MealGenerator();

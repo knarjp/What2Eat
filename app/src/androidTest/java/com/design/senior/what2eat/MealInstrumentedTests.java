@@ -1,5 +1,7 @@
 package com.design.senior.what2eat;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
 import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
 import com.design.senior.what2eat.DatabaseComponents.Enums.DietType;
@@ -8,15 +10,18 @@ import com.design.senior.what2eat.DatabaseComponents.Enums.MealTime;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by KJ on 3/6/2018.
+ * Created by KJ on 3/24/2018.
  */
 
-public class MealTests {
+@RunWith(AndroidJUnit4.class)
+public class MealInstrumentedTests {
+
     @Test
     public void testAllergySetter() throws Exception {
         Meal meal = new Meal();
@@ -167,4 +172,5 @@ public class MealTests {
         Assert.assertNotEquals(meal.getMealTimeEnum(), MealTime.LUNCH);
         Assert.assertNotEquals(meal.getMealTimeEnum(), MealTime.BREAKFAST);
     }
+
 }
