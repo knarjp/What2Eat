@@ -23,50 +23,16 @@ import java.util.List;
  */
 
 public class CalendarOptionsFragment extends Fragment {
-   /* private ImageView image;
-    private TextView name;
-    private TextView ingredients;
-    private TextView recipe;
-    private TextView allergies;
-    private TextView calories;
 
-    // the fragment initialization parameters
-    private static final String IMAGE_ARG = "image";
-    private static final String NAME_ARG = "name";
-    private static final String INGREDIENTS_ARG = "ingredients";
-    private static final String RECIPE_ARG = "recipe";
-    private static final String ALLERGIES_ARG = "allergies";
-    private static final String CALORIES_ARG = "calories";
+    private TextView helloText;
 
     public CalendarOptionsFragment() {
         // Required empty public constructor
     }
 
     public static CalendarOptionsFragment newInstance() {
-        // make an empty fragment
+        // make an empty fragment and return it
         CalendarOptionsFragment fragment = new CalendarOptionsFragment();
-
-        // make a bundle to set
-        Bundle args = new Bundle();
-
-        // set the variables of the fragment (its picture, recipe, etc.) to meal's attributes
-        args.putByteArray(IMAGE_ARG, meal.getPicture());
-        args.putString(NAME_ARG, meal.getName());
-        args.putString(INGREDIENTS_ARG, meal.getIngredients());
-        args.putString(RECIPE_ARG, meal.getRecipe());
-        args.putInt(CALORIES_ARG, meal.getCaloricAmount());
-
-        // get all the allergies strings from the meal's allergies list
-        ArrayList<String> allergiesStrings = new ArrayList<>();
-        List<AllergyType> allergies = meal.getAllergiesEnum();
-
-        for(AllergyType allergy : allergies) {
-            allergiesStrings.add(allergy.toString());
-        }
-
-        args.putStringArrayList(ALLERGIES_ARG, allergiesStrings);
-
-        fragment.setArguments(args);
 
         return fragment;
     }
@@ -74,45 +40,11 @@ public class CalendarOptionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_meal_viewer, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar_options, container, false);
 
         // assign view fields to xml IDs
-        name = (TextView) view.findViewById(R.id.meal_viewer_name);
-        image = (ImageView) view.findViewById(R.id.meal_viewer_image);
-        ingredients = (TextView) view.findViewById(R.id.meal_viewer_ingredients_content);
-        recipe = (TextView) view.findViewById(R.id.meal_viewer_recipe_content);
-        calories = (TextView) view.findViewById(R.id.meal_viewer_calories_content);
-        allergies = (TextView) view.findViewById(R.id.meal_viewer_allergies_content);
-
-        // get data for view fields
-        if (getArguments() != null) {
-            name.setText(getArguments().getString(NAME_ARG));
-            ingredients.setText(getArguments().getString(INGREDIENTS_ARG));
-            recipe.setText(getArguments().getString(RECIPE_ARG));
-            calories.setText(String.valueOf(getArguments().getInt(CALORIES_ARG)));
-
-            ArrayList<String> allergiesList = getArguments().getStringArrayList(ALLERGIES_ARG);
-            String allergiesString = "";
-            for(String allergy : allergiesList) {
-                allergiesString += allergy + ", ";
-            }
-
-            if(allergies.length() > 2) {
-                allergies.setText(allergiesString.substring(0, allergiesString.length() - 2));
-            } else {
-                allergies.setText(allergiesString);
-            }
-
-            try {
-                byte[] imageByteArray = getArguments().getByteArray(IMAGE_ARG);
-                Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
-
-                image.setImageBitmap(imageBitmap);
-            } catch (Exception e) {
-                // do nothing if image cannot be loaded (keep default image)
-            }
-        }
+        helloText = (TextView) view.findViewById(R.id.testText);
 
         return view;
-    }*/
+    }
 }

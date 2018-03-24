@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +103,10 @@ public class CalendarViewerFragment extends Fragment {
         generationOptionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: switch to options fragment on click
+            //    FragmentManager manager = getActivity().getSupportFragmentManager();
+            //    FragmentTransaction transaction = manager.beginTransaction();
+            //    transaction.replace(R.id.calendar_frame_layout, );
+            //    transaction.commit();
             }
         });
 
