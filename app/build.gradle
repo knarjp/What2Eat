@@ -58,4 +58,5 @@ dependencies {
     // RoomAsset - Copyright Copyright Copyright (c) 2018 Ibrahim Eid - see CREDITS.md for licensing credits
     implementation 'com.github.humazed:RoomAsset:v1.0'
     implementation 'com.google.android.gms:play-services-ads:11.8.0'
+    testCompile 'junit:junit:4.12'
 }
