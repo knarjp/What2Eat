@@ -93,6 +93,10 @@ public class MealGenerator {
             }
         }
 
+        if(allowedBreakfasts.isEmpty() && allowedLunches.isEmpty() && allowedLunches.isEmpty()) {
+            return generatedMealsList;
+        }
+
         for(Entry day : datesToUse) {
             int dayID = day.getID();
             int caloriesLeft = calorieTarget;

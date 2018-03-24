@@ -27,7 +27,7 @@ public class MealViewerActivity extends AppCompatActivity {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragment, mealViewerFragment);
+        transaction.replace(R.id.meal_viewer_fragment_frame, mealViewerFragment);
         transaction.commit();
     }
 }
