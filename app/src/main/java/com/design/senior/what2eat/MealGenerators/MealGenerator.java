@@ -67,13 +67,11 @@ public class MealGenerator {
         return disallowedAllergies;
     }
 
-    public void addDisallowedAllergy(AllergyType allergy) {
-        if(!disallowedAllergies.contains(allergy)) {
-            disallowedAllergies.add(allergy);
+    public void setDisallowedAllergies(List<AllergyType> disallowedAllergies) {
+        this.disallowedAllergies = disallowedAllergies;
 
-            if(disallowedAllergies.contains(AllergyType.NONE) && allergy != AllergyType.NONE) {
-                disallowedAllergies.remove(AllergyType.NONE);
-            }
+        if(this.disallowedAllergies.isEmpty()) {
+            this.disallowedAllergies.add(AllergyType.NONE);
         }
     }
 
@@ -81,13 +79,10 @@ public class MealGenerator {
         return allowedDiets;
     }
 
-    public void addAllowedDiet(DietType diet) {
-        if(!allowedDiets.contains(diet)) {
-            allowedDiets.add(diet);
-
-            if(allowedDiets.contains(DietType.NONE) && diet != DietType.NONE) {
-                allowedDiets.remove(DietType.NONE);
-            }
+    public void setAllowedDiets(List<DietType> allowedDiets) {
+        this.allowedDiets = allowedDiets;
+        if(this.allowedDiets.isEmpty()) {
+            this.allowedDiets.add(DietType.NONE);
         }
     }
 }
