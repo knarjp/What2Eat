@@ -16,4 +16,6 @@
     <string name="meal_viewer_fragment_recipe_list">recipe list</string>
     <string name="meal_viewer_fragment_allergies_header">Allergies</string>
     <string name="meal_viewer_fragment_allergies_list">allergies list</string>
+    <string name="meal_viewer_fragment_calories_header">Calories</string>
+    <string name="meal_viewer_fragment_calories_list">calories list</string>
 </resources>

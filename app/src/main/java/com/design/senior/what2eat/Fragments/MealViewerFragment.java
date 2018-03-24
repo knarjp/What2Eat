@@ -15,6 +15,8 @@ import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
 import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
 import com.design.senior.what2eat.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class MealViewerFragment extends Fragment {
     private TextView ingredients;
     private TextView recipe;
     private TextView allergies;
+    private TextView calories;
 
     // the fragment initialization parameters
     private static final String IMAGE_ARG = "image";
@@ -32,6 +35,7 @@ public class MealViewerFragment extends Fragment {
     private static final String INGREDIENTS_ARG = "ingredients";
     private static final String RECIPE_ARG = "recipe";
     private static final String ALLERGIES_ARG = "allergies";
+    private static final String CALORIES_ARG = "calories";
 
     public MealViewerFragment() {
         // Required empty public constructor
@@ -49,6 +53,7 @@ public class MealViewerFragment extends Fragment {
         args.putString(NAME_ARG, meal.getName());
         args.putString(INGREDIENTS_ARG, meal.getIngredients());
         args.putString(RECIPE_ARG, meal.getRecipe());
+        args.putInt(CALORIES_ARG, meal.getCaloricAmount());
 
         // get all the allergies strings from the meal's allergies list
         ArrayList<String> allergiesStrings = new ArrayList<>();
@@ -75,6 +80,7 @@ public class MealViewerFragment extends Fragment {
         image = (ImageView) view.findViewById(R.id.meal_viewer_image);
         ingredients = (TextView) view.findViewById(R.id.meal_viewer_ingredients_content);
         recipe = (TextView) view.findViewById(R.id.meal_viewer_recipe_content);
+        calories = (TextView) view.findViewById(R.id.meal_viewer_calories_content);
         allergies = (TextView) view.findViewById(R.id.meal_viewer_allergies_content);
 
         // get data for view fields
@@ -82,6 +88,7 @@ public class MealViewerFragment extends Fragment {
             name.setText(getArguments().getString(NAME_ARG));
             ingredients.setText(getArguments().getString(INGREDIENTS_ARG));
             recipe.setText(getArguments().getString(RECIPE_ARG));
+            calories.setText(String.valueOf(getArguments().getInt(CALORIES_ARG)));
 
             ArrayList<String> allergiesList = getArguments().getStringArrayList(ALLERGIES_ARG);
             String allergiesString = "";

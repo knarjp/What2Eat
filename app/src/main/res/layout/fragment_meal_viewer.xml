@@ -82,5 +82,23 @@
             android:textSize="18sp"
             android:layout_marginTop="6dp"
             android:text="@string/meal_viewer_fragment_allergies_list"/>
+
+        <TextView
+            android:id="@+id/meal_viewer_calories_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meal_viewer_allergies_content"
+            android:textSize="24sp"
+            android:layout_marginTop="6dp"
+            android:text="@string/meal_viewer_fragment_calories_header"/>
+
+        <TextView
+            android:id="@+id/meal_viewer_calories_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meal_viewer_calories_header"
+            android:textSize="18sp"
+            android:layout_marginTop="6dp"
+            android:text="@string/meal_viewer_fragment_calories_list"/>
     </RelativeLayout>
 </ScrollView>
