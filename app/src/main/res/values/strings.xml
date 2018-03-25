@@ -20,4 +20,5 @@
     <string name="meal_viewer_fragment_allergies_list">allergies list</string>
     <string name="meal_viewer_fragment_calories_header">Calories</string>
     <string name="meal_viewer_fragment_calories_list">calories list</string>
+    <string name="calendar_fragment_diets_header">Dietary Preferences</string>
 </resources>

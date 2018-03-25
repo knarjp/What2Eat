@@ -8,11 +8,146 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/testText"
+            android:id="@+id/options_allergies_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="hey"
+            android:text="@string/meal_viewer_fragment_allergies_header"
+            android:textSize="24sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_milk_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Milk"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/options_allergies_header"
+            android:layout_alignStart="@+id/options_allergies_header"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_eggs_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Eggs"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/allergies_milk_checkbox"
+            android:layout_alignStart="@+id/allergies_milk_checkbox"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_fish_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fish"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/allergies_eggs_checkbox"
+            android:layout_alignStart="@+id/allergies_eggs_checkbox"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_shellfish_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shellfish"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/allergies_fish_checkbox"
+            android:layout_alignStart="@+id/allergies_fish_checkbox"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_treenuts_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Treenuts"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/options_allergies_header"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_peanuts_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peanuts"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/allergies_treenuts_checkbox"
+            android:layout_alignStart="@+id/allergies_treenuts_checkbox"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_wheat_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wheat"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/allergies_peanuts_checkbox"
+            android:layout_alignStart="@+id/allergies_peanuts_checkbox"
+            />
+
+        <CheckBox
+            android:id="@+id/allergies_soy_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soy"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/allergies_wheat_checkbox"
+            android:layout_alignStart="@+id/allergies_wheat_checkbox"
+            />
+
+        <TextView
+            android:id="@+id/options_diets_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/calendar_fragment_diets_header"
+            android:textSize="24sp"
+            android:layout_below="@id/allergies_shellfish_checkbox"
+            android:layout_alignParentStart="true"
+            />
+
+        <RadioGroup
+            android:id="@+id/options_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/options_diets_header"
+            android:checkedButton="@id/options_none_radio">
+
+            <RadioButton
+                android:id="@+id/options_none_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Preference"
+                />
+
+            <RadioButton
+                android:id="@+id/options_vegan_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vegan"
+                />
+
+            <RadioButton
+                android:id="@+id/options_vegetarian_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vegetarian"
+                />
+
+            <RadioButton
+                android:id="@+id/options_pescetarian_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pescetarian"
+                />
+
+            <RadioButton
+                android:id="@+id/options_paleo_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paleolithic"
+                />
+        </RadioGroup>
     </RelativeLayout>
 </ScrollView>
