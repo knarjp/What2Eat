@@ -107,7 +107,7 @@ public class MealGenerator {
             boolean hasNoLunch = true;
             boolean hasNoDinner = true;
 
-            while(hasNoBreakfast) {
+            while(hasNoBreakfast && !allowedBreakfasts.isEmpty()) {
                 Meal meal = allowedBreakfasts.get(rand.nextInt(allowedBreakfasts.size()));
 
                 if(meal.getCaloricAmount() < caloriesLeft/3 + 150) {
@@ -119,7 +119,7 @@ public class MealGenerator {
                 }
             }
 
-            while(hasNoLunch) {
+            while(hasNoLunch && !allowedLunches.isEmpty()) {
                 Meal meal = allowedLunches.get(rand.nextInt(allowedLunches.size()));
 
                 if(meal.getCaloricAmount() < caloriesLeft/3 + 150) {
@@ -131,7 +131,7 @@ public class MealGenerator {
                 }
             }
 
-            while(hasNoDinner) {
+            while(hasNoDinner && !allowedDinners.isEmpty()) {
                 Meal meal = allowedDinners.get(rand.nextInt(allowedDinners.size()));
 
                 if(meal.getCaloricAmount() < caloriesLeft/3 + 150) {
@@ -149,7 +149,7 @@ public class MealGenerator {
                     case 1:
                         hasNoBreakfast = true;
 
-                        while(hasNoBreakfast) {
+                        while(hasNoBreakfast && !allowedBreakfasts.isEmpty()) {
                             Meal meal = allowedBreakfasts.get(rand.nextInt(allowedBreakfasts.size()));
 
                             if(meal.getCaloricAmount() < caloriesLeft + 150) {
@@ -164,7 +164,7 @@ public class MealGenerator {
                     case 2:
                         hasNoLunch = true;
 
-                        while(hasNoLunch) {
+                        while(hasNoLunch && !allowedLunches.isEmpty()) {
                             Meal meal = allowedLunches.get(rand.nextInt(allowedLunches.size()));
 
                             if(meal.getCaloricAmount() < caloriesLeft + 150) {
@@ -179,7 +179,7 @@ public class MealGenerator {
                     case 3:
                         hasNoDinner = true;
 
-                        while(hasNoDinner) {
+                        while(hasNoDinner && !allowedDinners.isEmpty()) {
                             Meal meal = allowedDinners.get(rand.nextInt(allowedDinners.size()));
 
                             if(meal.getCaloricAmount() < caloriesLeft + 150) {
@@ -229,5 +229,15 @@ public class MealGenerator {
         if(this.allowedDiets.isEmpty()) {
             this.allowedDiets.add(DietType.NONE);
         }
+    }
+
+    public void addDisallowedAllergy(AllergyType allergyType) {
+        if(!disallowedAllergies.contains(allergyType)) {
+            disallowedAllergies.add(allergyType);
+        }
+    }
+
+    public void removeDisallowedAllergy(AllergyType allergyType) {
+        disallowedAllergies.remove(allergyType);
     }
 }

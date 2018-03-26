@@ -1,5 +1,8 @@
 package com.design.senior.what2eat.Fragments;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,16 +10,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
+import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
+import com.design.senior.what2eat.DatabaseComponents.Enums.DietType;
 import com.design.senior.what2eat.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by KJ on 3/24/2018.
  */
 
 public class CalendarOptionsFragment extends Fragment {
+
+    private OptionsViewToParentActivityCommunicator communicator;
 
     private TextView allergiesText;
     private TextView dietText;
@@ -30,7 +41,7 @@ public class CalendarOptionsFragment extends Fragment {
     private CheckBox wheatCheck;
     private CheckBox soyCheck;
 
-    private RadioGroup radioGroup;
+    private RadioGroup dietsRadioGroup;
 
     public CalendarOptionsFragment() {
         // Required empty public constructor
@@ -61,10 +72,182 @@ public class CalendarOptionsFragment extends Fragment {
         wheatCheck = (CheckBox) view.findViewById(R.id.allergies_wheat_checkbox);
         soyCheck = (CheckBox) view.findViewById(R.id.allergies_soy_checkbox);
 
-        radioGroup = (RadioGroup) view.findViewById(R.id.options_radio_group);
+        dietsRadioGroup = (RadioGroup) view.findViewById(R.id.options_radio_group);
 
-        // TODO: set onclick listeners
+        milkCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(milkCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.MILK);
+                } else {
+                    communicator.removeAllergy(AllergyType.MILK);
+                }
+            }
+        });
+
+        eggsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(eggsCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.EGGS);
+                } else {
+                    communicator.removeAllergy(AllergyType.EGGS);
+                }
+            }
+        });
+
+        fishCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(fishCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.FISH);
+                } else {
+                    communicator.removeAllergy(AllergyType.FISH);
+                }
+            }
+        });
+
+        shellfishCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(shellfishCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.SHELLFISH);
+                } else {
+                    communicator.removeAllergy(AllergyType.SHELLFISH);
+                }
+            }
+        });
+
+        treenutsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(treenutsCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.TREENUTS);
+                } else {
+                    communicator.removeAllergy(AllergyType.TREENUTS);
+                }
+            }
+        });
+
+        peanutsCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(peanutsCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.PEANUTS);
+                } else {
+                    communicator.removeAllergy(AllergyType.PEANUTS);
+                }
+            }
+        });
+
+        wheatCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(wheatCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.WHEAT);
+                } else {
+                    communicator.removeAllergy(AllergyType.WHEAT);
+                }
+            }
+        });
+
+        soyCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(soyCheck.isChecked()) {
+                    communicator.addAllergy(AllergyType.SOY);
+                } else {
+                    communicator.removeAllergy(AllergyType.SOY);
+                }
+            }
+        });
+
+        dietsRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId) {
+                    case R.id.options_none_radio:
+                        List<DietType> allowedDiets_none = new ArrayList<>();
+
+                        allowedDiets_none.add(DietType.VEGAN);
+                        allowedDiets_none.add(DietType.VEGETARIAN);
+                        allowedDiets_none.add(DietType.PESCETARIAN);
+                        allowedDiets_none.add(DietType.PALEO);
+
+                        communicator.setDietType(allowedDiets_none);
+                        break;
+                    case R.id.options_vegan_radio:
+                        List<DietType> allowedDiets_vegan = new ArrayList<>();
+
+                        allowedDiets_vegan.add(DietType.VEGAN);
+
+                        communicator.setDietType(allowedDiets_vegan);
+                        break;
+                    case R.id.options_vegetarian_radio:
+                        List<DietType> allowedDiets_vegetarian = new ArrayList<>();
+
+                        allowedDiets_vegetarian.add(DietType.VEGAN);
+                        allowedDiets_vegetarian.add(DietType.VEGETARIAN);
+
+                        communicator.setDietType(allowedDiets_vegetarian);
+                        break;
+                    case R.id.options_pescetarian_radio:
+                        List<DietType> allowedDiets_pescetarian = new ArrayList<>();
+
+                        allowedDiets_pescetarian.add(DietType.VEGAN);
+                        allowedDiets_pescetarian.add(DietType.VEGETARIAN);
+                        allowedDiets_pescetarian.add(DietType.PESCETARIAN);
+
+                        communicator.setDietType(allowedDiets_pescetarian);
+                        break;
+                    case R.id.options_paleo_radio:
+                        List<DietType> allowedDiets_paleo = new ArrayList<>();
+
+                        allowedDiets_paleo.add(DietType.PALEO);
+
+                        communicator.setDietType(allowedDiets_paleo);
+                        break;
+                }
+            }
+        });
 
         return view;
+    }
+
+    public interface OptionsViewToParentActivityCommunicator {
+        void setDietType(List<DietType> allowedDiets);
+        void addAllergy(AllergyType allergyType);
+        void removeAllergy(AllergyType allergyType);
+    }
+
+    @Override
+    public void onAttach(Context context) { // required for android API versions on or after 23
+        super.onAttach(context);
+
+        Activity activity;
+
+        if(context instanceof Activity) { // TODO: oh god this is gross figure out how to get around this
+            activity = (Activity) context;
+
+            try {
+                communicator = (OptionsViewToParentActivityCommunicator) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(context.toString() + "must implement OptionsViewToParentActivityCommunicator");
+            }
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) { // required for android API versions before 23
+        super.onAttach(activity);
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            try {
+                communicator = (OptionsViewToParentActivityCommunicator) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString() + "must implement OptionsViewToParentActivityCommunicator");
+            }
+        }
     }
 }

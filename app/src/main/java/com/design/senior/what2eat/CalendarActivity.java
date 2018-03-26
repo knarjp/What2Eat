@@ -8,16 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
 import com.design.senior.what2eat.DatabaseComponents.AppDatabase;
+import com.design.senior.what2eat.DatabaseComponents.Enums.AllergyType;
+import com.design.senior.what2eat.DatabaseComponents.Enums.DietType;
 import com.design.senior.what2eat.Fragments.CalendarOptionsFragment;
 import com.design.senior.what2eat.Fragments.CalendarViewerFragment;
 import com.design.senior.what2eat.MealGenerators.MealGenerator;
+
+import java.util.List;
 
 /**
  * Created by KJ on 2/3/2018.
  */
 
 public class CalendarActivity extends AppCompatActivity
-        implements CalendarViewerFragment.CalendarViewToParentActivityCommunicator {
+        implements CalendarViewerFragment.CalendarViewToParentActivityCommunicator,
+         CalendarOptionsFragment.OptionsViewToParentActivityCommunicator {
 
     private MealGenerator mealGenerator;
     private AppDatabase appDatabase;
@@ -45,5 +50,17 @@ public class CalendarActivity extends AppCompatActivity
         transaction.replace(R.id.calendar_frame_layout, optionsViewFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void setDietType(List<DietType> diets) {
+        mealGenerator.setAllowedDiets(diets);
+    }
+
+    public void addAllergy(AllergyType allergyType) {
+        mealGenerator.addDisallowedAllergy(allergyType);
+    }
+
+    public void removeAllergy(AllergyType allergyType) {
+        mealGenerator.removeDisallowedAllergy(allergyType);
     }
 }

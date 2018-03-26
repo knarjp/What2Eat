@@ -109,7 +109,7 @@ public class CalendarViewerFragment extends Fragment {
     }
 
     public interface CalendarViewToParentActivityCommunicator {
-        public void changeToOptionsFragment();
+        void changeToOptionsFragment();
     }
 
     @Override
