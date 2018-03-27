@@ -28,10 +28,7 @@
             android:id="@+id/meal_editor_list_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:maxLength="16"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:textSize="14sp"
             tools:text="Title"
             android:layout_centerVertical="true"/>
 

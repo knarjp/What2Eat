@@ -72,8 +72,8 @@ public class CalendarActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    public void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins) {
-        mealListFragment = GeneratedMealListFragment.newInstance(meals, mealEntryJoins);
+    public void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins, Date day) {
+        mealListFragment = GeneratedMealListFragment.newInstance(meals, mealEntryJoins, day);
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

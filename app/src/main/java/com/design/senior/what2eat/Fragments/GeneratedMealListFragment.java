@@ -17,8 +17,11 @@ import com.design.senior.what2eat.DatabaseComponents.Enums.MealTime;
 import com.design.senior.what2eat.ListViewAdapters.GeneratedMealListAdapter;
 import com.design.senior.what2eat.R;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by KJ on 3/26/2018.
@@ -33,6 +36,8 @@ public class GeneratedMealListFragment extends Fragment {
     private TextView emptyLunches;
     private TextView emptyDinners;
 
+    private TextView currentDate;
+
     private LinearLayoutManager breakfastLinearLayoutManager;
     private LinearLayoutManager lunchLinearLayoutManager;
     private LinearLayoutManager dinnerLinearLayoutManager;
@@ -41,12 +46,13 @@ public class GeneratedMealListFragment extends Fragment {
     private static final String LUNCHES_ARG = "lunches";
     private static final String DINNERS_ARG = "dinners";
     private static final String JOINS_ARG = "joins";
+    private static final String DATE_ARG = "date";
 
     public GeneratedMealListFragment() {
         // Required empty public constructor
     }
 
-    public static GeneratedMealListFragment newInstance(List<Meal> meals, List<MealEntryJoin> entryJoins) {
+    public static GeneratedMealListFragment newInstance(List<Meal> meals, List<MealEntryJoin> entryJoins, Date date) {
         // make an empty fragment and return it
         GeneratedMealListFragment fragment = new GeneratedMealListFragment();
 
@@ -74,6 +80,8 @@ public class GeneratedMealListFragment extends Fragment {
 
         args.putParcelableArrayList(JOINS_ARG, (ArrayList<MealEntryJoin>) entryJoins);
 
+        args.putString(DATE_ARG, DateFormat.getDateInstance(DateFormat.LONG, Locale.US).format(date));
+
         fragment.setArguments(args);
 
         return fragment;
@@ -92,7 +100,11 @@ public class GeneratedMealListFragment extends Fragment {
         emptyLunches = (TextView) view.findViewById(R.id.empty_lunches);
         emptyDinners = (TextView) view.findViewById(R.id.empty_dinners);
 
+        currentDate = (TextView) view.findViewById(R.id.currentDate);
+
         if(getArguments() != null) {
+            currentDate.setText(getArguments().getString(DATE_ARG));
+
             ArrayList<Meal> breakfasts = getArguments().getParcelableArrayList(BREAKFASTS_ARG);
 
             ArrayList<MealEntryJoin> joins = getArguments().getParcelableArrayList(JOINS_ARG);

@@ -86,7 +86,7 @@ public class CalendarViewerFragment extends Fragment {
                 if(mealEntryJoins == null || mealEntryJoins.isEmpty()) {
                     Toast.makeText(getContext(), "No meals generated for this day!", Toast.LENGTH_SHORT).show();
                 } else {
-                    communicator.changeToMealListFragment(meals, mealEntryJoins);
+                    communicator.changeToMealListFragment(meals, mealEntryJoins, day);
                 }
             }
         });
@@ -124,7 +124,7 @@ public class CalendarViewerFragment extends Fragment {
 
     public interface CalendarViewToParentActivityCommunicator {
         void changeToOptionsFragment();
-        void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins);
+        void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins, Date date);
         void generateMeals(int calorieTarget);
         List<Date> getMarkedDatesForCalendar();
         List<Meal> getMealsForDay(Date day);
