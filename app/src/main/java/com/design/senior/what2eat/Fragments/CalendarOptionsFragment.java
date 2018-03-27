@@ -54,6 +54,8 @@ public class CalendarOptionsFragment extends Fragment {
         return fragment;
     }
 
+    // TODO: add button and interface method for deciding if we want to generate custom meals or not
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment

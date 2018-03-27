@@ -18,7 +18,7 @@ public class Entry {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "ID", typeAffinity = ColumnInfo.INTEGER)
-    private int ID = 0;
+    private int ID;
 
     @NonNull
     @ColumnInfo(name = "Date", typeAffinity = ColumnInfo.TEXT) // STORED IN FORMAT MM/DD/YYYY
@@ -40,8 +40,16 @@ public class Entry {
         this.date = date;
     }
 
-    public Date getDateAsDate() throws Exception {
-        return DateFormat.getDateInstance(DateFormat.SHORT, Locale.US).parse(date);
+    public Date getDateAsDate() {
+        Date date = new Date();
+
+        try {
+            date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US).parse(this.date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 
     public void setDate(Date date) {

@@ -25,7 +25,7 @@ public class Meal implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name = "MealID", typeAffinity = ColumnInfo.INTEGER)
-    private int mealID = 0;
+    private int mealID;
 
     @NonNull
     @ColumnInfo(name = "Name", typeAffinity = ColumnInfo.TEXT)

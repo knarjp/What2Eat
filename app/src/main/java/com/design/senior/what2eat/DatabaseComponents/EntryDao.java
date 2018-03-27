@@ -17,11 +17,14 @@ import java.util.List;
 public interface EntryDao {
 
     @Query("SELECT * FROM Entry")
-    List<Entry> getAllGeneratedMealEntries();
+    List<Entry> getAllEntries();
+
+    @Query("SELECT * from Entry WHERE Date = :date")
+    Entry getEntryWithDate(String date);
 
     @Insert
     void inserEntryTuples(Entry... entries);
 
     @Delete
-    void deleteEntryTuple(Entry entry);
+    int deleteEntryTuple(Entry entry);
 }

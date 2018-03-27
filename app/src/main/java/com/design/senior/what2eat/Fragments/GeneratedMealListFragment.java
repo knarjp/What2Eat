@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,27 +16,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-// Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-
 import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
 import com.design.senior.what2eat.DayDecorators.OccupiedDayDecorator;
 import com.design.senior.what2eat.R;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by KJ on 3/24/2018.
+ * Created by KJ on 3/26/2018.
  */
 
-public class CalendarViewerFragment extends Fragment {
-
+public class GeneratedMealListFragment extends Fragment {
+/* TODO: implement layout and logic for displaying meals on a list using a recyclerview
     private MaterialCalendarView materialCalendarView;
     private CurrentDayDecorator currentDayDecorator;
     private OccupiedDayDecorator occupiedDayDecorator;
@@ -49,7 +44,7 @@ public class CalendarViewerFragment extends Fragment {
 
     private CalendarViewToParentActivityCommunicator communicator;
 
-    public CalendarViewerFragment() {
+    public GeneratedMealListFragment() {
         // Required empty public constructor
     }
 
@@ -156,5 +151,5 @@ public class CalendarViewerFragment extends Fragment {
                 throw new ClassCastException(activity.toString() + "must implement parentActivityCommunicationPath");
             }
         }
-    }
+    }*/
 }
