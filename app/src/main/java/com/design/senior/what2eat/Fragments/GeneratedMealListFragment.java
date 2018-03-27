@@ -54,7 +54,6 @@ public class GeneratedMealListFragment extends Fragment {
         ArrayList<Meal> lunches = new ArrayList<>();
         ArrayList<Meal> dinners = new ArrayList<>();
 
-// TODO: parcelable for entries and put it in bundle and pass it to list adapters
         for(Meal meal : meals) {
             if(meal.getMealTimeEnum().equals(MealTime.BREAKFAST)) {
                 breakfasts.add(meal);
