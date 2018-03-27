@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
+import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -27,8 +27,6 @@ import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
 import com.design.senior.what2eat.DayDecorators.OccupiedDayDecorator;
 import com.design.senior.what2eat.R;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -83,8 +81,13 @@ public class CalendarViewerFragment extends Fragment {
                 Date day = date.getDate();
 
                 List<Meal> meals = communicator.getMealsForDay(day);
+                List<MealEntryJoin> mealEntryJoins = communicator.getGeneratedEntriesForDay(day);
 
-                communicator.changeToMealListFragment(meals);
+                if(mealEntryJoins == null || mealEntryJoins.isEmpty()) {
+                    Toast.makeText(getContext(), "No meals generated for this day!", Toast.LENGTH_SHORT).show();
+                } else {
+                    communicator.changeToMealListFragment(meals, mealEntryJoins);
+                }
             }
         });
 
@@ -121,10 +124,11 @@ public class CalendarViewerFragment extends Fragment {
 
     public interface CalendarViewToParentActivityCommunicator {
         void changeToOptionsFragment();
-        void changeToMealListFragment(List<Meal> meals);
+        void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins);
         void generateMeals(int calorieTarget);
         List<Date> getMarkedDatesForCalendar();
         List<Meal> getMealsForDay(Date day);
+        List<MealEntryJoin> getGeneratedEntriesForDay(Date day);
     }
 
     @Override
@@ -139,7 +143,7 @@ public class CalendarViewerFragment extends Fragment {
             try {
                 communicator = (CalendarViewToParentActivityCommunicator) activity;
             } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString() + "must implement parentActivityCommunicationPath");
+                throw new ClassCastException(context.toString() + "must implement CalendarViewToParentActivityCommunicator");
             }
         }
     }
@@ -153,7 +157,7 @@ public class CalendarViewerFragment extends Fragment {
             try {
                 communicator = (CalendarViewToParentActivityCommunicator) activity;
             } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString() + "must implement parentActivityCommunicationPath");
+                throw new ClassCastException(activity.toString() + "must implement CalendarViewToParentActivityCommunicator");
             }
         }
     }

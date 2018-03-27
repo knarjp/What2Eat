@@ -8,9 +8,8 @@ import android.widget.Toast;
 
 import com.design.senior.what2eat.DatabaseComponents.AppDatabase;
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.ListViewAdapters.MealEditorListAdaptor;
+import com.design.senior.what2eat.ListViewAdapters.MealEditorListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +17,6 @@ import java.util.List;
  */
 
 public class CustomMealListActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
 
     private LinearLayoutManager linearLayoutManager;
@@ -58,7 +56,7 @@ public class CustomMealListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        MealEditorListAdaptor adapter = new MealEditorListAdaptor(this, dataList, this);
+        MealEditorListAdapter adapter = new MealEditorListAdapter(this, dataList, this);
         recyclerView.setAdapter(adapter);
     }
 }

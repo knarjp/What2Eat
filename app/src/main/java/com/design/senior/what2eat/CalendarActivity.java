@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
@@ -18,6 +17,7 @@ import com.design.senior.what2eat.DatabaseComponents.Enums.DietType;
 import com.design.senior.what2eat.Fragments.CalendarOptionsFragment;
 import com.design.senior.what2eat.Fragments.CalendarViewerFragment;
 import com.design.senior.what2eat.Fragments.GeneratedMealListFragment;
+import com.design.senior.what2eat.ListViewAdapters.GeneratedMealListAdapter;
 import com.design.senior.what2eat.MealGenerators.MealGenerator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
@@ -32,7 +32,8 @@ import java.util.List;
 
 public class CalendarActivity extends AppCompatActivity
         implements CalendarViewerFragment.CalendarViewToParentActivityCommunicator,
-         CalendarOptionsFragment.OptionsViewToParentActivityCommunicator {
+         CalendarOptionsFragment.OptionsViewToParentActivityCommunicator,
+        GeneratedMealListAdapter.FragmentRefresher {
 
     private MealGenerator mealGenerator;
     private AppDatabase appDatabase;
@@ -43,6 +44,7 @@ public class CalendarActivity extends AppCompatActivity
 
     private List<Meal> meals;
     private List<Entry> entries;
+    private List<MealEntryJoin> joins;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,16 +72,38 @@ public class CalendarActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    public void changeToMealListFragment(List<Meal> meals) {
-        // TODO: uncomment me when everything works
+    public void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins) {
+        mealListFragment = GeneratedMealListFragment.newInstance(meals, mealEntryJoins);
 
-        //mealListFragment = GeneratedMealListFragment.newInstance(meals);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.calendar_frame_layout, mealListFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
-       // FragmentManager manager = getSupportFragmentManager();
-       // FragmentTransaction transaction = manager.beginTransaction();
-      //  transaction.replace(R.id.calendar_frame_layout, mealListFragment);
-       // transaction.addToBackStack(null);
-       // transaction.commit();
+    public void deleteGeneratedMealFromDatabase(final MealEntryJoin mealEntryJoin) {
+        Thread deleteMealEntryJoinThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                appDatabase.mealEntryJoinDao().deleteEntryTuple(mealEntryJoin);
+            }
+        });
+
+        deleteMealEntryJoinThread.start();
+
+        try {
+            deleteMealEntryJoinThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshView() {
+        getSupportFragmentManager().beginTransaction()
+                .detach(mealListFragment)
+                .attach(mealListFragment)
+                .commitAllowingStateLoss();
     }
 
     public List<Date> getMarkedDatesForCalendar() {
@@ -132,6 +156,33 @@ public class CalendarActivity extends AppCompatActivity
         }
 
         return meals;
+    }
+
+    public List<MealEntryJoin> getGeneratedEntriesForDay(final Date day) {
+        joins = null;
+
+        Thread getMealsFromDateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                entries = appDatabase.entryDao().getAllEntries();
+
+                for(Entry entry : entries) {
+                    if(entry.getDateAsDate().equals(day)) {
+                        joins = appDatabase.mealEntryJoinDao().getMealEntryJoinsFromEntryID(entry.getID());
+                    }
+                }
+            }
+        });
+
+        getMealsFromDateThread.start();
+
+        try {
+            getMealsFromDateThread.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return joins;
     }
 
     public void generateMeals(int calorieTarget) {

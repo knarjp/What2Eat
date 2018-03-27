@@ -1,6 +1,7 @@
 package com.design.senior.what2eat.DatabaseComponents;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -21,6 +22,9 @@ public interface MealEntryJoinDao {
     @Insert
     void insertMealEntry(MealEntryJoin mealEntryJoin);
 
+    @Query("SELECT * FROM MealEntryJoin WHERE MealEntryJoin.entry = :entryID")
+    List<MealEntryJoin> getMealEntryJoinsFromEntryID(int entryID);
+
     @Query("SELECT ID, Date FROM Entry " +
             "INNER JOIN MealEntryJoin ON Entry.ID=MealEntryJoin.entry")
     List<Entry> getAllGeneratedEntries();
@@ -37,4 +41,7 @@ public interface MealEntryJoinDao {
 
     @Update
     void updateEntryTuple(MealEntryJoin mealEntryJoin);
+
+    @Delete
+    void deleteEntryTuple(MealEntryJoin mealEntryJoin);
 }

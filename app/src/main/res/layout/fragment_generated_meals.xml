@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/breakfastWrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:id="@+id/generated_meals_breakfast_header"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:text="Breakfast"
+                android:layout_alignParentStart="true"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/GeneratedBreakfasts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/generated_meals_breakfast_header"/>
+
+            <TextView
+                android:id="@+id/empty_breakfasts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/generated_meals_breakfast_header"
+                android:visibility="gone"
+                android:text="@string/no_meals_generated"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lunchWrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/breakfastWrapper">
+            <TextView
+                android:id="@+id/generated_meals_lunch_header"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:text="Lunch"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/GeneratedLunches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/generated_meals_lunch_header"/>
+
+            <TextView
+                android:id="@+id/empty_lunches"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/generated_meals_lunch_header"
+                android:visibility="gone"
+                android:text="@string/no_meals_generated"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dinnerWrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lunchWrapper">
+            <TextView
+                android:id="@+id/generated_meals_dinner_header"
+                android:layout_alignParentTop="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:text="Dinner"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/GeneratedDinners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/generated_meals_dinner_header"/>
+
+            <TextView
+                android:id="@+id/empty_dinners"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/generated_meals_dinner_header"
+                android:visibility="gone"
+                android:text="@string/no_meals_generated"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

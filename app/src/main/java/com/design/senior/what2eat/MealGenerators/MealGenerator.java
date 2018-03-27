@@ -17,7 +17,7 @@ import java.util.Random;
  */
 
 public class MealGenerator {
-
+// TODO: figure out allergies and diet type bugs with generator (they are being ignored??)
     private int calorieTarget;
     private List<AllergyType> disallowedAllergies;
     private List<DietType> allowedDiets;

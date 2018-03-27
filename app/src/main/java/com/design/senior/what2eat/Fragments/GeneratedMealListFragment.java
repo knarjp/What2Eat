@@ -1,30 +1,23 @@
 package com.design.senior.what2eat.Fragments;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.DayDecorators.CurrentDayDecorator;
-import com.design.senior.what2eat.DayDecorators.OccupiedDayDecorator;
+import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
+import com.design.senior.what2eat.DatabaseComponents.Enums.MealTime;
+import com.design.senior.what2eat.ListViewAdapters.GeneratedMealListAdapter;
 import com.design.senior.what2eat.R;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,25 +25,57 @@ import java.util.List;
  */
 
 public class GeneratedMealListFragment extends Fragment {
-/* TODO: implement layout and logic for displaying meals on a list using a recyclerview
-    private MaterialCalendarView materialCalendarView;
-    private CurrentDayDecorator currentDayDecorator;
-    private OccupiedDayDecorator occupiedDayDecorator;
+    private RecyclerView breakfastsRecyclerView;
+    private RecyclerView lunchesRecyclerView;
+    private RecyclerView dinnersRecyclerView;
 
-    private Button generateButton;
-    private Button generationOptionsButton;
+    private TextView emptyBreakfasts;
+    private TextView emptyLunches;
+    private TextView emptyDinners;
 
-    private EditText calorieTargetTextbox;
+    private LinearLayoutManager breakfastLinearLayoutManager;
+    private LinearLayoutManager lunchLinearLayoutManager;
+    private LinearLayoutManager dinnerLinearLayoutManager;
 
-    private CalendarViewToParentActivityCommunicator communicator;
+    private static final String BREAKFASTS_ARG = "breakfasts";
+    private static final String LUNCHES_ARG = "lunches";
+    private static final String DINNERS_ARG = "dinners";
+    private static final String JOINS_ARG = "joins";
 
     public GeneratedMealListFragment() {
         // Required empty public constructor
     }
 
-    public static CalendarViewerFragment newInstance() {
+    public static GeneratedMealListFragment newInstance(List<Meal> meals, List<MealEntryJoin> entryJoins) {
         // make an empty fragment and return it
-        CalendarViewerFragment fragment = new CalendarViewerFragment();
+        GeneratedMealListFragment fragment = new GeneratedMealListFragment();
+
+        ArrayList<Meal> breakfasts = new ArrayList<>();
+        ArrayList<Meal> lunches = new ArrayList<>();
+        ArrayList<Meal> dinners = new ArrayList<>();
+
+// TODO: parcelable for entries and put it in bundle and pass it to list adapters
+        for(Meal meal : meals) {
+            if(meal.getMealTimeEnum().equals(MealTime.BREAKFAST)) {
+                breakfasts.add(meal);
+            } else if(meal.getMealTimeEnum().equals(MealTime.LUNCH)) {
+                lunches.add(meal);
+            } else if(meal.getMealTimeEnum().equals(MealTime.DINNER)) {
+                dinners.add(meal);
+            } else {
+                throw new RuntimeException("invalid time of day for meal in GeneratedMealListFragment.java");
+            }
+        }
+
+        Bundle args = new Bundle();
+
+        args.putParcelableArrayList(BREAKFASTS_ARG, breakfasts);
+        args.putParcelableArrayList(LUNCHES_ARG, lunches);
+        args.putParcelableArrayList(DINNERS_ARG, dinners);
+
+        args.putParcelableArrayList(JOINS_ARG, (ArrayList<MealEntryJoin>) entryJoins);
+
+        fragment.setArguments(args);
 
         return fragment;
     }
@@ -58,98 +83,67 @@ public class GeneratedMealListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_generated_meals, container, false);
 
-        // assign view fields to xml IDs
-        materialCalendarView = (MaterialCalendarView) view.findViewById(R.id.MaterialCalendarView);
-        generateButton = (Button) view.findViewById(R.id.GenerateButton);
-        generationOptionsButton = (Button) view.findViewById(R.id.OptionsButton);
-        calorieTargetTextbox = (EditText) view.findViewById(R.id.CaloricAmountTextbox);
+        breakfastsRecyclerView = (RecyclerView) view.findViewById(R.id.GeneratedBreakfasts);
+        lunchesRecyclerView = (RecyclerView) view.findViewById(R.id.GeneratedLunches);
+        dinnersRecyclerView = (RecyclerView) view.findViewById(R.id.GeneratedDinners);
 
-        currentDayDecorator = new CurrentDayDecorator(Color.RED);
-        materialCalendarView.addDecorator(currentDayDecorator);
+        emptyBreakfasts = (TextView) view.findViewById(R.id.empty_breakfasts);
+        emptyLunches = (TextView) view.findViewById(R.id.empty_lunches);
+        emptyDinners = (TextView) view.findViewById(R.id.empty_dinners);
 
-        List<Date> dates = communicator.getMarkedDatesForCalendar();
-        setOccupiedDayDecorator(dates);
+        if(getArguments() != null) {
+            ArrayList<Meal> breakfasts = getArguments().getParcelableArrayList(BREAKFASTS_ARG);
 
-        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                Date day = date.getDate();
+            ArrayList<MealEntryJoin> joins = getArguments().getParcelableArrayList(JOINS_ARG);
 
-                List<Meal> meals = communicator.getMealsForDay(day);
+            if(breakfasts == null || breakfasts.isEmpty()) {
+                breakfastsRecyclerView.setVisibility(View.GONE);
+                emptyBreakfasts.setVisibility(View.VISIBLE);
+            } else {
+                breakfastsRecyclerView.setVisibility(View.VISIBLE);
+                emptyBreakfasts.setVisibility(View.GONE);
 
-                communicator.changeToMealListFragment(meals);
+                breakfastsRecyclerView.setHasFixedSize(true);
+                breakfastLinearLayoutManager = new LinearLayoutManager(getContext());
+                breakfastsRecyclerView.setLayoutManager(breakfastLinearLayoutManager);
+                GeneratedMealListAdapter breakfastAdapter = new GeneratedMealListAdapter(getActivity(), breakfasts, joins, getContext());
+                breakfastsRecyclerView.setAdapter(breakfastAdapter);
             }
-        });
 
-        generateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(TextUtils.isEmpty(calorieTargetTextbox.getText().toString())) {
-                    Toast.makeText(getContext(), "Please enter a valid caloric intake!", Toast.LENGTH_LONG).show();
-                } else {
-                    communicator.generateMeals(Integer.parseInt(calorieTargetTextbox.getText().toString()));
+            ArrayList<Meal> lunches = getArguments().getParcelableArrayList(LUNCHES_ARG);
 
-                    List<Date> dates = communicator.getMarkedDatesForCalendar();
+            if(lunches == null || lunches.isEmpty()) {
+                lunchesRecyclerView.setVisibility(View.GONE);
+                emptyLunches.setVisibility(View.VISIBLE);
+            } else {
+                lunchesRecyclerView.setVisibility(View.VISIBLE);
+                emptyLunches.setVisibility(View.GONE);
 
-                    setOccupiedDayDecorator(dates);
-                }
+                lunchesRecyclerView.setHasFixedSize(true);
+                lunchLinearLayoutManager = new LinearLayoutManager(getContext());
+                lunchesRecyclerView.setLayoutManager(lunchLinearLayoutManager);
+                GeneratedMealListAdapter lunchAdapter = new GeneratedMealListAdapter(getActivity(), lunches, joins, getContext());
+                lunchesRecyclerView.setAdapter(lunchAdapter);
             }
-        });
 
-        generationOptionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                communicator.changeToOptionsFragment(); // send event to the host activity
+            ArrayList<Meal> dinners = getArguments().getParcelableArrayList(DINNERS_ARG);
+
+            if(dinners == null || dinners.isEmpty()) {
+                dinnersRecyclerView.setVisibility(View.GONE);
+                emptyDinners.setVisibility(View.VISIBLE);
+            } else {
+                dinnersRecyclerView.setVisibility(View.VISIBLE);
+                emptyDinners.setVisibility(View.GONE);
+
+                dinnersRecyclerView.setHasFixedSize(true);
+                dinnerLinearLayoutManager = new LinearLayoutManager(getContext());
+                dinnersRecyclerView.setLayoutManager(dinnerLinearLayoutManager);
+                GeneratedMealListAdapter dinnerAdapter = new GeneratedMealListAdapter(getActivity(), dinners, joins, getContext());
+                dinnersRecyclerView.setAdapter(dinnerAdapter);
             }
-        });
-
+        }
         return view;
     }
-
-    public void setOccupiedDayDecorator(List<Date> datesToMark) {
-        occupiedDayDecorator = new OccupiedDayDecorator(Color.GREEN, datesToMark);
-
-        materialCalendarView.addDecorator(occupiedDayDecorator);
-    }
-
-    public interface CalendarViewToParentActivityCommunicator {
-        void changeToOptionsFragment();
-        void changeToMealListFragment(List<Meal> meals);
-        void generateMeals(int calorieTarget);
-        List<Date> getMarkedDatesForCalendar();
-        List<Meal> getMealsForDay(Date day);
-    }
-
-    @Override
-    public void onAttach(Context context) { // required for android API versions on or after 23
-        super.onAttach(context);
-
-        Activity activity;
-
-        if(context instanceof Activity) { // TODO: oh god this is gross figure out how to get around this
-            activity = (Activity) context;
-
-            try {
-                communicator = (CalendarViewToParentActivityCommunicator) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString() + "must implement parentActivityCommunicationPath");
-            }
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onAttach(Activity activity) { // required for android API versions before 23
-        super.onAttach(activity);
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            try {
-                communicator = (CalendarViewToParentActivityCommunicator) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString() + "must implement parentActivityCommunicationPath");
-            }
-        }
-    }*/
 }

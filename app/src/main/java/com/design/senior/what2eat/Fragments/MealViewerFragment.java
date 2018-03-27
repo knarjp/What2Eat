@@ -36,6 +36,7 @@ public class MealViewerFragment extends Fragment {
     private static final String RECIPE_ARG = "recipe";
     private static final String ALLERGIES_ARG = "allergies";
     private static final String CALORIES_ARG = "calories";
+    private static final String MEAL_ARG = "meal";
 
     public MealViewerFragment() {
         // Required empty public constructor
@@ -48,22 +49,8 @@ public class MealViewerFragment extends Fragment {
         // make a bundle to set
         Bundle args = new Bundle();
 
-        // set the variables of the fragment (its picture, recipe, etc.) to meal's attributes
-        args.putByteArray(IMAGE_ARG, meal.getPicture());
-        args.putString(NAME_ARG, meal.getName());
-        args.putString(INGREDIENTS_ARG, meal.getIngredients());
-        args.putString(RECIPE_ARG, meal.getRecipe());
-        args.putInt(CALORIES_ARG, meal.getCaloricAmount());
-
-        // get all the allergies strings from the meal's allergies list
-        ArrayList<String> allergiesStrings = new ArrayList<>();
-        List<AllergyType> allergies = meal.getAllergiesEnum();
-
-        for(AllergyType allergy : allergies) {
-            allergiesStrings.add(allergy.toString());
-        }
-
-        args.putStringArrayList(ALLERGIES_ARG, allergiesStrings);
+        // set the variables of the fragment to be the meal
+        args.putParcelable(MEAL_ARG, meal);
 
         fragment.setArguments(args);
 
@@ -85,30 +72,35 @@ public class MealViewerFragment extends Fragment {
 
         // get data for view fields
         if (getArguments() != null) {
-            name.setText(getArguments().getString(NAME_ARG));
-            ingredients.setText(getArguments().getString(INGREDIENTS_ARG));
-            recipe.setText(getArguments().getString(RECIPE_ARG));
-            calories.setText(String.valueOf(getArguments().getInt(CALORIES_ARG)));
 
-            ArrayList<String> allergiesList = getArguments().getStringArrayList(ALLERGIES_ARG);
-            String allergiesString = "";
-            for(String allergy : allergiesList) {
-                allergiesString += allergy + ", ";
-            }
+            Meal meal = getArguments().getParcelable(MEAL_ARG);
 
-            if(allergies.length() > 2) {
-                allergies.setText(allergiesString.substring(0, allergiesString.length() - 2));
-            } else {
-                allergies.setText(allergiesString);
-            }
+            if(meal != null) {
+                name.setText(meal.getName());
+                ingredients.setText(meal.getIngredients());
+                recipe.setText(meal.getRecipe());
+                calories.setText(String.valueOf(meal.getCaloricAmount()));
 
-            try {
-                byte[] imageByteArray = getArguments().getByteArray(IMAGE_ARG);
-                Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+                List<AllergyType> allergiesList = meal.getAllergiesEnum();
+                String allergiesString = "";
+                for (AllergyType allergy : allergiesList) {
+                    allergiesString += allergy.toString() + ", ";
+                }
 
-                image.setImageBitmap(imageBitmap);
-            } catch (Exception e) {
-                // do nothing if image cannot be loaded (keep default image)
+                if (allergies.length() > 2) {
+                    allergies.setText(allergiesString.substring(0, allergiesString.length() - 2));
+                } else {
+                    allergies.setText(allergiesString);
+                }
+
+                try {
+                    byte[] imageByteArray = meal.getPicture();
+                    Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+
+                    image.setImageBitmap(imageBitmap);
+                } catch (Exception e) {
+                    // do nothing if image cannot be loaded (keep default image)
+                }
             }
         }
 

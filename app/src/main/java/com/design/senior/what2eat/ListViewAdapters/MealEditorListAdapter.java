@@ -23,13 +23,13 @@ import java.util.List;
  * Created by KJ on 2/10/2018.
  */
 
-public class MealEditorListAdaptor extends RecyclerView.Adapter<MealEditorListAdaptor.ViewHolder> {
+public class MealEditorListAdapter extends RecyclerView.Adapter<MealEditorListAdapter.ViewHolder> {
 
     private List<Meal> dataSource;
     private Context context;
     private AppCompatActivity activity;
 
-    public MealEditorListAdaptor(AppCompatActivity activity, List<Meal> dataSource, Context context) {
+    public MealEditorListAdapter(AppCompatActivity activity, List<Meal> dataSource, Context context) {
         this.activity = activity;
         this.dataSource = dataSource;
         this.context = context;
@@ -64,7 +64,7 @@ public class MealEditorListAdaptor extends RecyclerView.Adapter<MealEditorListAd
     }
 
     @Override
-    public MealEditorListAdaptor.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MealEditorListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.editor_listview_layout, parent, false);
 
