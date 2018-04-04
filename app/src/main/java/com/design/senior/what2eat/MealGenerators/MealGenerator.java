@@ -75,7 +75,6 @@ public class MealGenerator {
             }
 
             if(mealCandidate.getDietTypeEnum().getToleranceLevel() < allowedDiet.getToleranceLevel()) { // lower levels than allowedDiet's are not allowed
-                Log.d("What2eat", "CAND: " +mealCandidate.getDietTypeEnum().getToleranceLevel() + " ALLOWED: " + allowedDiet.getToleranceLevel());
                 switch(mealCandidate.getMealTimeEnum()) {
                     case BREAKFAST:
                         allowedBreakfasts.remove(mealCandidate);
@@ -92,8 +91,7 @@ public class MealGenerator {
             }
         }
 
-        if(allowedBreakfasts.isEmpty() && allowedLunches.isEmpty() && allowedLunches.isEmpty()) {
-            Log.d("What2eat", "TRUE");
+        if(allowedBreakfasts.isEmpty() && allowedLunches.isEmpty() && allowedDinners.isEmpty()) {
             return generatedMealsList;
         }
 
