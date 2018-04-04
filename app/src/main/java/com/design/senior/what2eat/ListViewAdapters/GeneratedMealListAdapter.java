@@ -71,6 +71,8 @@ public class GeneratedMealListAdapter extends RecyclerView.Adapter<GeneratedMeal
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    deleteButton.setEnabled(false);
+
                     int position = getAdapterPosition();
 
                     try {
@@ -79,9 +81,8 @@ public class GeneratedMealListAdapter extends RecyclerView.Adapter<GeneratedMeal
                         int mealID = dataSource.get(position).getMealID();
 
                         MealEntryJoin entryToDelete;
-                        Log.d("What2Eat", "here");
 
-                        List<MealEntryJoin> entriesCopy = new ArrayList<MealEntryJoin>(entries);
+                        List<MealEntryJoin> entriesCopy = new ArrayList<>(entries);
 
                         for(MealEntryJoin join : entriesCopy) {
                             if(join.getMeal() == mealID) {
@@ -103,6 +104,8 @@ public class GeneratedMealListAdapter extends RecyclerView.Adapter<GeneratedMeal
                     } catch (ClassCastException e) {
                         throw new ClassCastException(activity.toString() + "must implement FragmentRefresher");
                     }
+
+                    deleteButton.setEnabled(true);
                 }
             });
         }

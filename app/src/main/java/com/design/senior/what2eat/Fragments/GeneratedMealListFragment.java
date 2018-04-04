@@ -6,11 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.design.senior.what2eat.DatabaseComponents.AppDatabase;
+import com.design.senior.what2eat.DatabaseComponents.Entities.Entry;
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
 import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
 import com.design.senior.what2eat.DatabaseComponents.Enums.MealTime;
@@ -42,41 +45,22 @@ public class GeneratedMealListFragment extends Fragment {
     private LinearLayoutManager lunchLinearLayoutManager;
     private LinearLayoutManager dinnerLinearLayoutManager;
 
-    private static final String BREAKFASTS_ARG = "breakfasts";
-    private static final String LUNCHES_ARG = "lunches";
-    private static final String DINNERS_ARG = "dinners";
     private static final String JOINS_ARG = "joins";
     private static final String DATE_ARG = "date";
+
+    private List<Meal> meals;
+    private List<Entry> entries;
+    private AppDatabase appDatabase;
 
     public GeneratedMealListFragment() {
         // Required empty public constructor
     }
 
-    public static GeneratedMealListFragment newInstance(List<Meal> meals, List<MealEntryJoin> entryJoins, Date date) {
+    public static GeneratedMealListFragment newInstance(List<MealEntryJoin> entryJoins, Date date) {
         // make an empty fragment and return it
         GeneratedMealListFragment fragment = new GeneratedMealListFragment();
 
-        ArrayList<Meal> breakfasts = new ArrayList<>();
-        ArrayList<Meal> lunches = new ArrayList<>();
-        ArrayList<Meal> dinners = new ArrayList<>();
-
-        for(Meal meal : meals) {
-            if(meal.getMealTimeEnum().equals(MealTime.BREAKFAST)) {
-                breakfasts.add(meal);
-            } else if(meal.getMealTimeEnum().equals(MealTime.LUNCH)) {
-                lunches.add(meal);
-            } else if(meal.getMealTimeEnum().equals(MealTime.DINNER)) {
-                dinners.add(meal);
-            } else {
-                throw new RuntimeException("invalid time of day for meal in GeneratedMealListFragment.java");
-            }
-        }
-
         Bundle args = new Bundle();
-
-        args.putParcelableArrayList(BREAKFASTS_ARG, breakfasts);
-        args.putParcelableArrayList(LUNCHES_ARG, lunches);
-        args.putParcelableArrayList(DINNERS_ARG, dinners);
 
         args.putParcelableArrayList(JOINS_ARG, (ArrayList<MealEntryJoin>) entryJoins);
 
@@ -105,11 +89,35 @@ public class GeneratedMealListFragment extends Fragment {
         if(getArguments() != null) {
             currentDate.setText(getArguments().getString(DATE_ARG));
 
-            ArrayList<Meal> breakfasts = getArguments().getParcelableArrayList(BREAKFASTS_ARG);
+            ArrayList<Meal> breakfasts = new ArrayList<>();
+            ArrayList<Meal> lunches = new ArrayList<>();
+            ArrayList<Meal> dinners = new ArrayList<>();
 
             ArrayList<MealEntryJoin> joins = getArguments().getParcelableArrayList(JOINS_ARG);
 
-            if(breakfasts == null || breakfasts.isEmpty()) {
+            Date currentDate = new Date();
+
+            try {
+                currentDate = DateFormat.getDateInstance(DateFormat.LONG, Locale.US).parse(getArguments().getString(DATE_ARG));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            getMealsForDay(currentDate);
+
+            for(Meal meal : meals) {
+                if (meal.getMealTimeEnum().equals(MealTime.BREAKFAST)) {
+                    breakfasts.add(meal);
+                } else if (meal.getMealTimeEnum().equals(MealTime.LUNCH)) {
+                    lunches.add(meal);
+                } else if (meal.getMealTimeEnum().equals(MealTime.DINNER)) {
+                    dinners.add(meal);
+                } else {
+                    throw new RuntimeException("invalid time of day for meal in GeneratedMealListFragment.java");
+                }
+            }
+
+            if(breakfasts.isEmpty()) {
                 breakfastsRecyclerView.setVisibility(View.GONE);
                 emptyBreakfasts.setVisibility(View.VISIBLE);
             } else {
@@ -123,9 +131,7 @@ public class GeneratedMealListFragment extends Fragment {
                 breakfastsRecyclerView.setAdapter(breakfastAdapter);
             }
 
-            ArrayList<Meal> lunches = getArguments().getParcelableArrayList(LUNCHES_ARG);
-
-            if(lunches == null || lunches.isEmpty()) {
+            if(lunches.isEmpty()) {
                 lunchesRecyclerView.setVisibility(View.GONE);
                 emptyLunches.setVisibility(View.VISIBLE);
             } else {
@@ -139,9 +145,7 @@ public class GeneratedMealListFragment extends Fragment {
                 lunchesRecyclerView.setAdapter(lunchAdapter);
             }
 
-            ArrayList<Meal> dinners = getArguments().getParcelableArrayList(DINNERS_ARG);
-
-            if(dinners == null || dinners.isEmpty()) {
+            if(dinners.isEmpty()) {
                 dinnersRecyclerView.setVisibility(View.GONE);
                 emptyDinners.setVisibility(View.VISIBLE);
             } else {
@@ -156,5 +160,32 @@ public class GeneratedMealListFragment extends Fragment {
             }
         }
         return view;
+    }
+
+    private void getMealsForDay(final Date day) {
+        meals = null;
+
+        appDatabase = AppDatabase.getAppDatabase(getContext());
+
+        Thread getMealsFromDateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                entries = appDatabase.entryDao().getAllEntries();
+
+                for (Entry entry : entries) {
+                    if (entry.getDateAsDate().equals(day)) {
+                        meals = appDatabase.mealEntryJoinDao().getMealsFromEntry(entry.getID());
+                    }
+                }
+            }
+        });
+
+        getMealsFromDateThread.start();
+
+        try {
+            getMealsFromDateThread.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

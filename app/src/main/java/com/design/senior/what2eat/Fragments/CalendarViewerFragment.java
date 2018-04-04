@@ -80,13 +80,12 @@ public class CalendarViewerFragment extends Fragment {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 Date day = date.getDate();
 
-                List<Meal> meals = communicator.getMealsForDay(day);
                 List<MealEntryJoin> mealEntryJoins = communicator.getGeneratedEntriesForDay(day);
 
                 if(mealEntryJoins == null || mealEntryJoins.isEmpty()) {
                     Toast.makeText(getContext(), "No meals generated for this day!", Toast.LENGTH_SHORT).show();
                 } else {
-                    communicator.changeToMealListFragment(meals, mealEntryJoins, day);
+                    communicator.changeToMealListFragment(mealEntryJoins, day);
                 }
             }
         });
@@ -124,10 +123,9 @@ public class CalendarViewerFragment extends Fragment {
 
     public interface CalendarViewToParentActivityCommunicator {
         void changeToOptionsFragment();
-        void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins, Date date);
+        void changeToMealListFragment(List<MealEntryJoin> mealEntryJoins, Date date);
         void generateMeals(int calorieTarget);
         List<Date> getMarkedDatesForCalendar();
-        List<Meal> getMealsForDay(Date day);
         List<MealEntryJoin> getGeneratedEntriesForDay(Date day);
     }
 

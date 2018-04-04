@@ -72,8 +72,8 @@ public class CalendarActivity extends FragmentActivity
         transaction.commit();
     }
 
-    public void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins, Date day) {
-        mealListFragment = GeneratedMealListFragment.newInstance(meals, mealEntryJoins, day);
+    public void changeToMealListFragment(List<MealEntryJoin> mealEntryJoins, Date day) {
+        mealListFragment = GeneratedMealListFragment.newInstance(mealEntryJoins, day);
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -130,33 +130,6 @@ public class CalendarActivity extends FragmentActivity
         }
 
         return dates;
-    }
-
-    public List<Meal> getMealsForDay(final Date day) {
-        meals = null;
-
-        Thread getMealsFromDateThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                entries = appDatabase.entryDao().getAllEntries();
-
-                for(Entry entry : entries) {
-                    if(entry.getDateAsDate().equals(day)) {
-                        meals = appDatabase.mealEntryJoinDao().getMealsFromEntry(entry.getID());
-                    }
-                }
-            }
-        });
-
-        getMealsFromDateThread.start();
-
-        try {
-            getMealsFromDateThread.join();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return meals;
     }
 
     public List<MealEntryJoin> getGeneratedEntriesForDay(final Date day) {
