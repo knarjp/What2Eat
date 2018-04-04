@@ -1,5 +1,6 @@
 package com.design.senior.what2eat.MealGenerators;
 
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.design.senior.what2eat.DatabaseComponents.Entities.Entry;
@@ -19,7 +20,7 @@ import java.util.Random;
 public class MealGenerator {
     private int calorieTarget;
     private List<AllergyType> disallowedAllergies;
-    private List<DietType> allowedDiets;
+    private DietType allowedDiet;
 
     public MealGenerator() {
         calorieTarget = 0;
@@ -27,8 +28,7 @@ public class MealGenerator {
         disallowedAllergies = new ArrayList<>();
         disallowedAllergies.add(AllergyType.NONE);
 
-        allowedDiets = new ArrayList<>();
-        allowedDiets.add(DietType.NONE);
+        allowedDiet = DietType.NONE;
     }
 
     public List<MealEntryJoin> generateMeals(List<Meal> mealsToUse, List<Entry> datesToUse) {
@@ -74,7 +74,8 @@ public class MealGenerator {
                 }
             }
 
-            if(!allowedDiets.contains(DietType.NONE) && !allowedDiets.contains(mealCandidate.getDietTypeEnum())) {
+            if(mealCandidate.getDietTypeEnum().getToleranceLevel() < allowedDiet.getToleranceLevel()) { // lower levels than allowedDiet's are not allowed
+                Log.d("What2eat", "CAND: " +mealCandidate.getDietTypeEnum().getToleranceLevel() + " ALLOWED: " + allowedDiet.getToleranceLevel());
                 switch(mealCandidate.getMealTimeEnum()) {
                     case BREAKFAST:
                         allowedBreakfasts.remove(mealCandidate);
@@ -88,11 +89,11 @@ public class MealGenerator {
                     default:
                         throw new RuntimeException();
                 }
-                break;
             }
         }
 
         if(allowedBreakfasts.isEmpty() && allowedLunches.isEmpty() && allowedLunches.isEmpty()) {
+            Log.d("What2eat", "TRUE");
             return generatedMealsList;
         }
 
@@ -219,24 +220,29 @@ public class MealGenerator {
         }
     }
 
-    public List<DietType> getAllowedDiets() {
-        return allowedDiets;
+    public DietType getAllowedDiet() {
+        return allowedDiet;
     }
 
-    public void setAllowedDiets(List<DietType> allowedDiets) {
-        this.allowedDiets = allowedDiets;
-        if(this.allowedDiets.isEmpty()) {
-            this.allowedDiets.add(DietType.NONE);
-        }
+    public void setAllowedDiet(DietType allowedDiet) {
+        this.allowedDiet = allowedDiet;
     }
 
     public void addDisallowedAllergy(AllergyType allergyType) {
         if(!disallowedAllergies.contains(allergyType)) {
             disallowedAllergies.add(allergyType);
+
+            if(disallowedAllergies.contains(AllergyType.NONE)) {
+                disallowedAllergies.remove(AllergyType.NONE);
+            }
         }
     }
 
     public void removeDisallowedAllergy(AllergyType allergyType) {
         disallowedAllergies.remove(allergyType);
+
+        if(disallowedAllergies.isEmpty()) {
+            disallowedAllergies.add(AllergyType.NONE);
+        }
     }
 }

@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
@@ -311,8 +309,8 @@ public class CalendarActivity extends FragmentActivity
         Toast.makeText(this, "Meals Generated!", Toast.LENGTH_LONG).show();
     }
 
-    public void setDietType(List<DietType> diets) {
-        mealGenerator.setAllowedDiets(diets);
+    public void setDietType(DietType diet) {
+        mealGenerator.setAllowedDiet(diet);
     }
 
     public void addAllergy(AllergyType allergyType) {
