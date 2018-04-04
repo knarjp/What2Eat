@@ -1,6 +1,7 @@
 package com.design.senior.what2eat;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -173,6 +175,8 @@ public class MealEditorActivity extends AppCompatActivity {
                     dietsRadioGroup.check(R.id.options_none_radio);
                     break;
             }
+
+            needsToSave = false;
         }
     }
 
@@ -478,10 +482,9 @@ public class MealEditorActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
+    public void onBackPressed() {
         saveMeal();
+        super.onBackPressed();
     }
 
     private void saveMeal() {
@@ -508,6 +511,8 @@ public class MealEditorActivity extends AppCompatActivity {
 
                     needsToSave = false;
                     isNewMeal = false;
+
+                    Toast.makeText(getApplicationContext(), "Meal Saved!", Toast.LENGTH_SHORT).show();
                 } else {
                     Thread updateMealThread = new Thread(new Runnable() {
                         @Override
@@ -525,9 +530,9 @@ public class MealEditorActivity extends AppCompatActivity {
                     }
 
                     needsToSave = false;
-                }
 
-                Toast.makeText(getApplicationContext(), "Meal Saved!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Meal Saved!", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

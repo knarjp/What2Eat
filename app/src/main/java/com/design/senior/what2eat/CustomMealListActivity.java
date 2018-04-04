@@ -51,9 +51,14 @@ public class CustomMealListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.custom_meal_list_layout);
 
+        db = AppDatabase.getAppDatabase(getApplicationContext());
+
+        mealList = new ArrayList<>();
         breakfastIDList = new ArrayList<>();
         lunchIDList = new ArrayList<>();
         dinnerIDList = new ArrayList<>();
+
+        currentMealTime = MealTime.BREAKFAST;
 
         populateLists();
 
@@ -79,8 +84,6 @@ public class CustomMealListActivity extends AppCompatActivity
                         currentMealTime = MealTime.DINNER;
                         break;
                 }
-
-                Log.d("What2Eat", currentMealTime.name());
             }
 
             @Override
@@ -96,8 +99,6 @@ public class CustomMealListActivity extends AppCompatActivity
                         currentMealTime = MealTime.DINNER;
                         break;
                 }
-
-                Log.d("What2Eat", currentMealTime.name());
             }
 
             @Override
@@ -136,8 +137,7 @@ public class CustomMealListActivity extends AppCompatActivity
         breakfastIDList.clear();
         lunchIDList.clear();
         dinnerIDList.clear();
-
-        db = AppDatabase.getAppDatabase(getApplicationContext());
+        mealList.clear();
 
         Thread getDatabaseThread = new Thread(new Runnable() {
             public void run() {
@@ -170,6 +170,22 @@ public class CustomMealListActivity extends AppCompatActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        viewPager.setAdapter(null); // clear viewPager
+
+        int startingTab = 0;
+
+        switch(currentMealTime) {
+            case BREAKFAST:
+                startingTab = 0;
+                break;
+            case LUNCH:
+                startingTab = 1;
+                break;
+            case DINNER:
+                startingTab = 2;
+                break;
+        }
+
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
 
         adapter.addFragment(CustomMealListFragment.newInstance(breakfastIDList, "Breakfasts"), "Breakfasts");
@@ -177,8 +193,7 @@ public class CustomMealListActivity extends AppCompatActivity
         adapter.addFragment(CustomMealListFragment.newInstance(dinnerIDList, "Dinners"), "Dinners");
 
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(0);
-        currentMealTime = MealTime.BREAKFAST;
+        viewPager.setCurrentItem(startingTab);
     }
 
     public void deleteMealFromDatabase(final Meal meal) {
@@ -197,8 +212,10 @@ public class CustomMealListActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRestart() {
-        super.onRestart();
-        this.recreate();
+    public void onResume() {
+        super.onResume();
+
+        populateLists();
+        setupViewPager(viewPager);
     }
 }

@@ -202,18 +202,18 @@ public class MealGeneratorInstrumentedTests {
 
         Meal dinner4 = new Meal();
         dinner4.setMealID(15);
-        dinner1.setCaloricAmount(850);
-        dinner1.setMealTimeEnum(MealTime.DINNER);
+        dinner4.setCaloricAmount(850);
+        dinner4.setMealTimeEnum(MealTime.DINNER);
 
         Meal dinner5 = new Meal();
         dinner5.setMealID(16);
-        dinner1.setCaloricAmount(425);
-        dinner1.setMealTimeEnum(MealTime.DINNER);
+        dinner5.setCaloricAmount(425);
+        dinner5.setMealTimeEnum(MealTime.DINNER);
 
         Meal dinner6 = new Meal();
         dinner6.setMealID(17);
-        dinner1.setCaloricAmount(375);
-        dinner1.setMealTimeEnum(MealTime.DINNER);
+        dinner6.setCaloricAmount(375);
+        dinner6.setMealTimeEnum(MealTime.DINNER);
 
         List<Meal> mealList = new ArrayList<>();
         mealList.add(breakfast1);

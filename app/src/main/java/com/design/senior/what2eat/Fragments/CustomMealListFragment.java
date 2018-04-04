@@ -104,46 +104,4 @@ public class CustomMealListFragment extends Fragment {
         }
         return view;
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-
-    }
-
-    public interface CustomMealListFragmentRefresher {
-        void refreshMealList();
-    }// TODO: add interface for refreshing tabs & setting position based on current tab (maybe use name????)
-
-    @Override
-    public void onAttach(Context context) { // required for android API versions on or after 23
-        super.onAttach(context);
-
-        Activity activity;
-
-        if(context instanceof Activity) { // TODO: oh god this is gross figure out how to get around this
-            activity = (Activity) context;
-
-            try {
-                communicator = (CustomMealListFragmentRefresher) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(context.toString() + "must implement CustomMealListFragmentRefresher");
-            }
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onAttach(Activity activity) { // required for android API versions before 23
-        super.onAttach(activity);
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            try {
-                communicator = (CustomMealListFragmentRefresher) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString() + "must implement CustomMealListFragmentRefresher");
-            }
-        }
-    }
 }

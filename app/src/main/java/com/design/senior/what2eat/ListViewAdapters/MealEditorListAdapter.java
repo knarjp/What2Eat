@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.design.senior.what2eat.DatabaseComponents.Entities.Meal;
-import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
 import com.design.senior.what2eat.MealEditorActivity;
 import com.design.senior.what2eat.MealViewerActivity;
 import com.design.senior.what2eat.R;
@@ -32,7 +30,7 @@ public class MealEditorListAdapter extends RecyclerView.Adapter<MealEditorListAd
     private Context context;
     private FragmentActivity activity;
 
-    EditorFragmentRefresher refresher;
+    EditorFragmentRefresher mealDeleter;
 
     public MealEditorListAdapter(FragmentActivity activity, List<Meal> dataSource, Context context) {
         this.activity = activity;
@@ -73,12 +71,16 @@ public class MealEditorListAdapter extends RecyclerView.Adapter<MealEditorListAd
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Meal meal = dataSource.get(getAdapterPosition());
+                    int position = getAdapterPosition();
+
+                    Meal meal = dataSource.get(position);
 
                     Intent intent = new Intent(context, MealEditorActivity.class);
                     intent.putExtra("meal", meal);
                     intent.putExtra("isNewMeal", false);
                     context.startActivity(intent);
+
+                    notifyItemChanged(position);
                 }
             });
 
@@ -90,13 +92,13 @@ public class MealEditorListAdapter extends RecyclerView.Adapter<MealEditorListAd
                     Meal meal = dataSource.get(position);
 
                     try {
-                        refresher = (EditorFragmentRefresher) activity;
+                        mealDeleter = (EditorFragmentRefresher) activity;
 
                         dataSource.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, dataSource.size());
 
-                        refresher.deleteMealFromDatabase(meal);
+                        mealDeleter.deleteMealFromDatabase(meal);
                     } catch (ClassCastException e) {
                         throw new ClassCastException(activity.toString() + "must implement EditorFragmentRefresher");
                     }
