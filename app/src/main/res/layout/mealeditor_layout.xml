@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/meal_editor_scrollview_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/meal_editor_name_entry"
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="90dp"
+            android:hint="Enter Meal Name"/>
+
+        <ImageView
+            android:id="@+id/meal_editor_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_alignParentEnd="true"
+            tools:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/thumbnail"/>
+
+        <TextView
+            android:id="@+id/meal_editor_image_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meal_editor_image"
+            android:textSize="16sp"
+            android:layout_alignStart="@+id/meal_editor_image"
+            android:layout_alignEnd="@+id/meal_editor_image"
+            android:gravity="center"
+            android:text="Meal Image"/>
+
+        <TextView
+            android:id="@+id/meal_editor_ingredients_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meal_editor_name_entry"
+            android:textSize="24sp"
+            android:layout_marginTop="6dp"
+            android:text="@string/meal_viewer_fragment_ingredient_header"/>
+
+        <EditText
+            android:id="@+id/meal_editor_ingredients_entry"
+            android:layout_width="350dp"
+            android:layout_marginEnd="90dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/meal_editor_ingredients_header"
+            android:hint="Enter Ingredients"/>
+
+        <TextView
+            android:id="@+id/meal_editor_recipe_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meal_editor_ingredients_entry"
+            android:textSize="24sp"
+            android:layout_marginTop="6dp"
+            android:text="@string/meal_viewer_fragment_recipe_header"/>
+
+        <EditText
+            android:id="@+id/meal_editor_recipe_entry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/meal_editor_recipe_header"
+            android:hint="Enter Recipe"/>
+
+        <TextView
+            android:id="@+id/meal_editor_calories_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meal_editor_recipe_entry"
+            android:textSize="24sp"
+            android:layout_marginTop="6dp"
+            android:text="@string/meal_viewer_fragment_calories_header"/>
+
+        <EditText
+            android:id="@+id/meal_editor_calories_entry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/meal_editor_calories_header"
+            android:hint="Enter Caloric Amount"
+            android:inputType="number"/>
+
+        <RelativeLayout
+            android:id="@+id/allergies_diets_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/meal_editor_calories_entry">
+
+            <TextView
+                android:id="@+id/options_allergies_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/meal_viewer_fragment_allergies_header"
+                android:textSize="24sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_milk_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Milk"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/options_allergies_header"
+                android:layout_alignStart="@+id/options_allergies_header"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_eggs_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eggs"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/allergies_milk_checkbox"
+                android:layout_alignStart="@+id/allergies_milk_checkbox"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_fish_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fish"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/allergies_eggs_checkbox"
+                android:layout_alignStart="@+id/allergies_eggs_checkbox"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_shellfish_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shellfish"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/allergies_fish_checkbox"
+                android:layout_alignStart="@+id/allergies_fish_checkbox"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_treenuts_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Treenuts"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/options_allergies_header"
+                android:layout_centerHorizontal="true"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_peanuts_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Peanuts"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/allergies_treenuts_checkbox"
+                android:layout_alignStart="@+id/allergies_treenuts_checkbox"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_wheat_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wheat"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/allergies_peanuts_checkbox"
+                android:layout_alignStart="@+id/allergies_peanuts_checkbox"
+                />
+
+            <CheckBox
+                android:id="@+id/allergies_soy_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Soy"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/allergies_wheat_checkbox"
+                android:layout_alignStart="@+id/allergies_wheat_checkbox"
+                />
+
+            <TextView
+                android:id="@+id/options_diets_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calendar_fragment_diets_header"
+                android:textSize="24sp"
+                android:layout_below="@id/allergies_shellfish_checkbox"
+                android:layout_alignParentStart="true"
+                />
+
+            <RadioGroup
+                android:id="@+id/options_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/options_diets_header"
+                android:checkedButton="@id/options_none_radio">
+
+                <RadioButton
+                    android:id="@+id/options_none_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Preference"
+                    />
+
+                <RadioButton
+                    android:id="@+id/options_vegan_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vegan"
+                    />
+
+                <RadioButton
+                    android:id="@+id/options_vegetarian_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vegetarian"
+                    />
+
+                <RadioButton
+                    android:id="@+id/options_pescetarian_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pescetarian"
+                    />
+
+                <RadioButton
+                    android:id="@+id/options_paleo_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paleolithic"
+                    />
+            </RadioGroup>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/allergies_diets_layout"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Save Meal"/>
+    </RelativeLayout>
+</ScrollView>

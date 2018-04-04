@@ -2,9 +2,11 @@ package com.design.senior.what2eat;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
@@ -30,10 +32,10 @@ import java.util.List;
  * Created by KJ on 2/3/2018.
  */
 
-public class CalendarActivity extends AppCompatActivity
+public class CalendarActivity extends FragmentActivity
         implements CalendarViewerFragment.CalendarViewToParentActivityCommunicator,
          CalendarOptionsFragment.OptionsViewToParentActivityCommunicator,
-        GeneratedMealListAdapter.FragmentRefresher {
+         GeneratedMealListAdapter.FragmentRefresher {
 
     private MealGenerator mealGenerator;
     private AppDatabase appDatabase;
@@ -82,7 +84,8 @@ public class CalendarActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    public void deleteGeneratedMealFromDatabase(final MealEntryJoin mealEntryJoin) {
+    public void
+    deleteGeneratedEntryFromDatabase(final MealEntryJoin mealEntryJoin) {
         Thread deleteMealEntryJoinThread = new Thread(new Runnable() {
             @Override
             public void run() {

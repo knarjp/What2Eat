@@ -22,4 +22,5 @@
     <string name="meal_viewer_fragment_calories_list">calories list</string>
     <string name="calendar_fragment_diets_header">Dietary Preferences</string>
     <string name="no_meals_generated">No Meals Generated</string>
+    <string name="no_meals_created">No Meals Created</string>
 </resources>

@@ -52,7 +52,7 @@
             android:text="@string/meal_editor_list_edit_meal"
             android:layout_toEndOf="@id/meal_editor_list_view_meal"/>
 
-        <RelativeLayout
+      <!--  <RelativeLayout
             android:id="@+id/meal_editor_generate_switch_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                 android:layout_below="@id/meal_editor_generate_switch_text"
                 android:showText="false"/>
         </RelativeLayout>
-
+-->
         <Button
             android:id="@+id/meal_editor_list_delete_meal"
             android:layout_width="wrap_content"
@@ -86,6 +86,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="3dp"
             android:text="@string/meal_editor_list_delete_meal"
-            android:layout_toEndOf="@id/meal_editor_generate_switch_layout"/>
+            android:layout_toEndOf="@+id/meal_editor_list_edit_meal"/>
+           <!-- android:layout_toEndOf="@id/meal_editor_generate_switch_layout"/>-->
     </RelativeLayout>
 </RelativeLayout>

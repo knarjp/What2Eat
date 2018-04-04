@@ -45,7 +45,7 @@ public class MealViewerFragment extends Fragment {
     public static MealViewerFragment newInstance(Meal meal) {
         // make an empty fragment
         MealViewerFragment fragment = new MealViewerFragment();
-
+        // TODO: need to revert to old system, breaks if data is too large
         // make a bundle to set
         Bundle args = new Bundle();
 

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.design.senior.what2eat">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,10 +19,13 @@
         </activity>
         <activity android:name=".CalendarActivity"
                   android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MealViewerActivity"
-                  android:parentActivityName=".CalendarActivity"></activity>
+
+        <activity android:name=".MealViewerActivity"></activity>
+
         <activity android:name=".CustomMealListActivity"
                   android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name=".MealEditorActivity"></activity>
     </application>
 
 </manifest>

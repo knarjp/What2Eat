@@ -61,12 +61,7 @@ public class Meal implements Parcelable {
     @ColumnInfo(name = "EntryType", typeAffinity = ColumnInfo.TEXT)
     private String entryType;
 
-    public Meal() {
-        this.allergies = AllergyType.NONE.name() + ",";
-        this.dietType = DietType.NONE.name() + ",";
-        this.mealTime = MealTime.BREAKFAST.name();
-        this.entryType = EntryType.DEFAULT.name();
-    }
+    public Meal() { }
 
     public int getMealID() {
         return mealID;
