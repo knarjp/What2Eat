@@ -20,6 +20,12 @@ public interface MealDao {
     @Query("SELECT * FROM Meal")
     List<Meal> getAllMeals();
 
+    @Query("SELECT * FROM Meal WHERE EntryType = 'CUSTOM'")
+    List<Meal> getAllCustomMeals();
+
+    @Query("SELECT mealID FROM Meal")
+    List<Integer> getAllMealKeys();
+
     @Insert
     void insertMealTuples(Meal... meals);
 

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.design.senior.what2eat.DatabaseComponents.Entities.MealEntryJoin;
 import com.design.senior.what2eat.MealViewerActivity;
 import com.design.senior.what2eat.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,29 +71,48 @@ public class GeneratedMealListAdapter extends RecyclerView.Adapter<GeneratedMeal
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    deleteButton.setEnabled(false);
+
                     int position = getAdapterPosition();
 
                     try {
                         fragmentRefresher = (FragmentRefresher) activity;
-                        fragmentRefresher.deleteGeneratedMealFromDatabase(entries.get(position));
 
-                        dataSource.remove(position);
-                        entries.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, dataSource.size());
-                        notifyItemRangeChanged(position, entries.size());
+                        int mealID = dataSource.get(position).getMealID();
 
-                        fragmentRefresher.refreshView();
+                        MealEntryJoin entryToDelete;
+
+                        List<MealEntryJoin> entriesCopy = new ArrayList<>(entries);
+
+                        for(MealEntryJoin join : entriesCopy) {
+                            if(join.getMeal() == mealID) {
+                                entryToDelete = join;
+
+                                fragmentRefresher.deleteGeneratedEntryFromDatabase(entryToDelete);
+
+                                dataSource.remove(position);
+                                entries.remove(entryToDelete);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, dataSource.size());
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, entries.size());
+
+                                fragmentRefresher.refreshView();
+                                break;
+                            }
+                        }
                     } catch (ClassCastException e) {
                         throw new ClassCastException(activity.toString() + "must implement FragmentRefresher");
                     }
+
+                    deleteButton.setEnabled(true);
                 }
             });
         }
     }
 
     public interface FragmentRefresher {
-        void deleteGeneratedMealFromDatabase(MealEntryJoin entry);
+        void deleteGeneratedEntryFromDatabase(MealEntryJoin entry);
         void refreshView();
     }
 

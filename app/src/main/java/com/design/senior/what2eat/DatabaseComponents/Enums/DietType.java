@@ -27,4 +27,20 @@ public enum DietType {
             default: throw new IllegalArgumentException();
         }
     }
+
+    public int getToleranceLevel() {
+        switch(this) {
+            case VEGAN:
+                return 4;
+            case VEGETARIAN:
+                return 3;
+            case PESCETARIAN:
+                return 2;
+            case PALEO:
+                return 1;
+            case NONE:
+                return 0;
+            default: throw new IllegalArgumentException();
+        }
+    }
 }

@@ -47,7 +47,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
 
     // Paging
-    implementation "android.arch.paging:runtime:1.0.0-alpha5"
+    implementation "android.arch.paging:runtime:1.0.0-alpha7"
 
     // Test helpers for LiveData
     testImplementation "android.arch.core:core-testing:1.1.0"
@@ -59,4 +59,5 @@ dependencies {
     implementation 'com.github.humazed:RoomAsset:v1.0'
     implementation 'com.google.android.gms:play-services-ads:11.8.0'
     testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:design:27.1.0'
 }

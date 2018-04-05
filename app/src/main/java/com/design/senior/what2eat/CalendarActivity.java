@@ -2,9 +2,9 @@ package com.design.senior.what2eat;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 // Material Calendar View - Copyright (c) 2017 Prolific Interactive - see CREDITS.md for licensing credits
@@ -30,10 +30,10 @@ import java.util.List;
  * Created by KJ on 2/3/2018.
  */
 
-public class CalendarActivity extends AppCompatActivity
+public class CalendarActivity extends FragmentActivity
         implements CalendarViewerFragment.CalendarViewToParentActivityCommunicator,
          CalendarOptionsFragment.OptionsViewToParentActivityCommunicator,
-        GeneratedMealListAdapter.FragmentRefresher {
+         GeneratedMealListAdapter.FragmentRefresher {
 
     private MealGenerator mealGenerator;
     private AppDatabase appDatabase;
@@ -72,8 +72,8 @@ public class CalendarActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    public void changeToMealListFragment(List<Meal> meals, List<MealEntryJoin> mealEntryJoins, Date day) {
-        mealListFragment = GeneratedMealListFragment.newInstance(meals, mealEntryJoins, day);
+    public void changeToMealListFragment(List<MealEntryJoin> mealEntryJoins, Date day) {
+        mealListFragment = GeneratedMealListFragment.newInstance(mealEntryJoins, day);
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -82,7 +82,8 @@ public class CalendarActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    public void deleteGeneratedMealFromDatabase(final MealEntryJoin mealEntryJoin) {
+    public void
+    deleteGeneratedEntryFromDatabase(final MealEntryJoin mealEntryJoin) {
         Thread deleteMealEntryJoinThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -129,33 +130,6 @@ public class CalendarActivity extends AppCompatActivity
         }
 
         return dates;
-    }
-
-    public List<Meal> getMealsForDay(final Date day) {
-        meals = null;
-
-        Thread getMealsFromDateThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                entries = appDatabase.entryDao().getAllEntries();
-
-                for(Entry entry : entries) {
-                    if(entry.getDateAsDate().equals(day)) {
-                        meals = appDatabase.mealEntryJoinDao().getMealsFromEntry(entry.getID());
-                    }
-                }
-            }
-        });
-
-        getMealsFromDateThread.start();
-
-        try {
-            getMealsFromDateThread.join();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return meals;
     }
 
     public List<MealEntryJoin> getGeneratedEntriesForDay(final Date day) {
@@ -308,8 +282,8 @@ public class CalendarActivity extends AppCompatActivity
         Toast.makeText(this, "Meals Generated!", Toast.LENGTH_LONG).show();
     }
 
-    public void setDietType(List<DietType> diets) {
-        mealGenerator.setAllowedDiets(diets);
+    public void setDietType(DietType diet) {
+        mealGenerator.setAllowedDiet(diet);
     }
 
     public void addAllergy(AllergyType allergyType) {

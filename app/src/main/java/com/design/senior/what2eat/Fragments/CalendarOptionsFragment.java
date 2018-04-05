@@ -54,8 +54,6 @@ public class CalendarOptionsFragment extends Fragment {
         return fragment;
     }
 
-    // TODO: add button and interface method for deciding if we want to generate custom meals or not
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -169,45 +167,19 @@ public class CalendarOptionsFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId) {
                     case R.id.options_none_radio:
-                        List<DietType> allowedDiets_none = new ArrayList<>();
-
-                        allowedDiets_none.add(DietType.VEGAN);
-                        allowedDiets_none.add(DietType.VEGETARIAN);
-                        allowedDiets_none.add(DietType.PESCETARIAN);
-                        allowedDiets_none.add(DietType.PALEO);
-
-                        communicator.setDietType(allowedDiets_none);
+                        communicator.setDietType(DietType.NONE);
                         break;
                     case R.id.options_vegan_radio:
-                        List<DietType> allowedDiets_vegan = new ArrayList<>();
-
-                        allowedDiets_vegan.add(DietType.VEGAN);
-
-                        communicator.setDietType(allowedDiets_vegan);
+                        communicator.setDietType(DietType.VEGAN);
                         break;
                     case R.id.options_vegetarian_radio:
-                        List<DietType> allowedDiets_vegetarian = new ArrayList<>();
-
-                        allowedDiets_vegetarian.add(DietType.VEGAN);
-                        allowedDiets_vegetarian.add(DietType.VEGETARIAN);
-
-                        communicator.setDietType(allowedDiets_vegetarian);
+                        communicator.setDietType(DietType.VEGETARIAN);
                         break;
                     case R.id.options_pescetarian_radio:
-                        List<DietType> allowedDiets_pescetarian = new ArrayList<>();
-
-                        allowedDiets_pescetarian.add(DietType.VEGAN);
-                        allowedDiets_pescetarian.add(DietType.VEGETARIAN);
-                        allowedDiets_pescetarian.add(DietType.PESCETARIAN);
-
-                        communicator.setDietType(allowedDiets_pescetarian);
+                        communicator.setDietType(DietType.PESCETARIAN);
                         break;
                     case R.id.options_paleo_radio:
-                        List<DietType> allowedDiets_paleo = new ArrayList<>();
-
-                        allowedDiets_paleo.add(DietType.PALEO);
-
-                        communicator.setDietType(allowedDiets_paleo);
+                        communicator.setDietType(DietType.PALEO);
                         break;
                 }
             }
@@ -217,7 +189,7 @@ public class CalendarOptionsFragment extends Fragment {
     }
 
     public interface OptionsViewToParentActivityCommunicator {
-        void setDietType(List<DietType> allowedDiets);
+        void setDietType(DietType allowedDiet);
         void addAllergy(AllergyType allergyType);
         void removeAllergy(AllergyType allergyType);
     }

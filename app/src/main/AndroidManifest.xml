@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.design.senior.what2eat">
-
+<!-- TODO: look into using Glide library for loading bitmaps, get rid of hardwareAccelerated and largeHeap if possible if Glide works-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +21,13 @@
         </activity>
         <activity android:name=".CalendarActivity"
                   android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MealViewerActivity"
-                  android:parentActivityName=".CalendarActivity"></activity>
+
+        <activity android:name=".MealViewerActivity"></activity>
+
         <activity android:name=".CustomMealListActivity"
                   android:parentActivityName=".MainActivity"></activity>
+
+        <activity android:name=".MealEditorActivity"></activity>
     </application>
 
 </manifest>
